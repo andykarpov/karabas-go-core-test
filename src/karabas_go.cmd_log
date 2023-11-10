@@ -1,0 +1,29 @@
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+map -intstyle ise -p xc6slx25-ftg256-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o karabas_go_map.ncd karabas_go.ngd karabas_go.pcf 
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+map -intstyle ise -p xc6slx25-ftg256-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o karabas_go_map.ncd karabas_go.ngd karabas_go.pcf 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+map -intstyle ise -p xc6slx25-ftg256-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o karabas_go_map.ncd karabas_go.ngd karabas_go.pcf 
+par -w -intstyle ise -ol high -mt off karabas_go_map.ncd karabas_go.ncd karabas_go.pcf 
+trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml karabas_go.twx karabas_go.ncd -o karabas_go.twr karabas_go.pcf -ucf karabas_go.ucf 
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+map -intstyle ise -p xc6slx25-ftg256-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o karabas_go_map.ncd karabas_go.ngd karabas_go.pcf 
+par -w -intstyle ise -ol high -mt off karabas_go_map.ncd karabas_go.ncd karabas_go.pcf 
+trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml karabas_go.twx karabas_go.ncd -o karabas_go.twr karabas_go.pcf -ucf karabas_go.ucf 
+bitgen -intstyle ise -f karabas_go.ut karabas_go.ncd 
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2 karabas_go.ngc karabas_go.ngd  
+map -intstyle ise -p xc6slx25-ftg256-2 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -global_opt off -mt off -ir off -pr off -lc off -power off -o karabas_go_map.ncd karabas_go.ngd karabas_go.pcf 
+par -w -intstyle ise -ol high -mt off karabas_go_map.ncd karabas_go.ncd karabas_go.pcf 
+trce -intstyle ise -v 3 -s 2 -n 3 -fastpaths -xml karabas_go.twx karabas_go.ncd -o karabas_go.twr karabas_go.pcf -ucf karabas_go.ucf 
+bitgen -intstyle ise -f karabas_go.ut karabas_go.ncd 
+bitgen -intstyle ise -f karabas_go.ut karabas_go.ncd 

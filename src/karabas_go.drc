@@ -1,0 +1,11 @@
+Release 14.7 Drc P.20131013 (lin)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+Tue Nov  7 00:47:38 2023
+
+drc -z karabas_go.ncd karabas_go.pcf
+
+WARNING:PhysDesignRules:781 - PULLUP on an active net. PULLUP of comp
+   SD_CS_N_PULLUP is set but the tri state is not configured. 
+DRC detected 0 errors and 1 warnings.  Please see the previously displayed
+individual error or warning messages for more details.

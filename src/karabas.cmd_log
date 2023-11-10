@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas.xst" -ofn "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas.syr" 

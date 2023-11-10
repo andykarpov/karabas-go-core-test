@@ -1,0 +1,105 @@
+Release 14.7 ngdbuild P.20131013 (lin)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+
+Command Line: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin/unwrapped/ngdbuild -intstyle
+ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2
+karabas_go.ngc karabas_go.ngd
+
+Reading NGO file
+"/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karaba
+s-go/karabas_go.ngc" ...
+Gathering constraint information from source properties...
+Done.
+
+Annotating constraints to design from ucf file "karabas_go.ucf" ...
+Resolving constraint associations...
+Checking Constraint Associations...
+Done...
+
+Checking expanded design ...
+WARNING:NgdBuild:470 - bidirect pad net 'WD<15>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<14>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<13>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<12>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<11>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<10>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<9>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<8>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<7>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<6>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<5>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<4>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<3>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<2>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<1>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'WD<0>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<15>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<14>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<13>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<12>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<11>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<10>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<9>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<8>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<7>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<6>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<5>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<4>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<3>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<2>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<1>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MD<0>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<15>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<14>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<13>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<12>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<11>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<10>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<9>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<8>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<7>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<6>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<5>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<4>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<3>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<2>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<1>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SDR_DQ<0>' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'UART_RX' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'UART_TX' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SD_DI' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'SD_DO' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_INDEX' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_DIR' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_STEP' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_WDATA' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_WGATE' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_TR00' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_WPRT' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_RDATA' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FDC_SIDE_N' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FT_SPI_MISO' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FT_SPI_MOSI' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FT_INT_N' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'FT_CLK' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MCU_MOSI' has no legal driver
+WARNING:NgdBuild:470 - bidirect pad net 'MCU_MISO' has no legal driver
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+NGDBUILD Design Results Summary:
+  Number of errors:     0
+  Number of warnings:  67
+
+Total memory usage is 114092 kilobytes
+
+Writing NGD file "karabas_go.ngd" ...
+Total REAL time to NGDBUILD completion:  2 sec
+Total CPU time to NGDBUILD completion:   2 sec
+
+Writing NGDBUILD log file "karabas_go.bld"...
