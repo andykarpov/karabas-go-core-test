@@ -1,8 +1,8 @@
 INTSTYLE=ise
-INFILE=/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.ncd
-OUTFILE=/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas_go.bit
+INFILE=/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas_go.ncd
+OUTFILE=/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas_go.bit
 FAMILY=Spartan6
 PART=xc6slx25-2ftg256
-WORKINGDIR=/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go
+WORKINGDIR=/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src
 LICENSE=WebPack
 USER_INFO=211218115_0_0_370

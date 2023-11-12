@@ -103,9 +103,44 @@ architecture Behavioral of karabas_go is
 signal cnt: std_logic_vector(26 downto 0) := (others => '0');
 signal led: std_logic := '0';
 
+-- Horizontal Timing constants  
+constant h_pixels_across	: integer := 1280 - 1;
+constant h_sync_on		: integer := 1344 - 1;
+constant h_sync_off		: integer := 1480 - 1;
+constant h_end_count		: integer := 1680 - 1;
+-- Vertical Timing constants
+constant v_pixels_down		: integer := 800 - 1;
+constant v_sync_on		: integer := 801 - 1;
+constant v_sync_off		: integer := 804 - 1;
+constant v_end_count		: integer := 828 - 1;
+
+signal hcnt		: std_logic_vector(11 downto 0) := "000000000000"; 	-- horizontal pixel counter
+signal vcnt		: std_logic_vector(11 downto 0) := "000000000000"; 	-- vertical line counter
+signal hsync		: std_logic;
+signal vsync		: std_logic;
+signal blank		: std_logic;
+signal shift		: std_logic_vector(7 downto 0);
+signal red		: std_logic_vector(7 downto 0);
+signal green		: std_logic_vector(7 downto 0);
+signal blue		: std_logic_vector(7 downto 0);
+signal clk_vga		: std_logic;
+
+  component ODDR2
+  port(
+          D0	: in std_logic;
+          D1	: in std_logic;
+          C0	: in std_logic;
+          C1	: in std_logic;
+          Q	: out std_logic;
+          CE    : in std_logic;
+          S     : in std_logic;
+          R	: in std_logic
+    );
+  end component;
+
 begin
 
-TAPE_OUT <= CLK_50MHZ;
+TAPE_OUT <= '0';
 BEEPER <= '0';
 DAC_LRCK <= '0';
 DAC_BCK <= '0';
@@ -135,27 +170,76 @@ FDC_MOTOR <= '0';
 FT_SPI_CS_N <= '1';
 FT_SPI_SCK <= '0';
 FT_OE_N <= '1';
-VGA_R <= (others => '0');
-VGA_G <= (others => '0');
-VGA_B <= (others => '0');
-VGA_HS <= '0';
-VGA_VS <= '0';
-V_CLK <= '0';
+--VGA_R <= (others => '0');
+--VGA_G <= (others => '0');
+--VGA_B <= (others => '0');
+--VGA_HS <= '0';
+--VGA_VS <= '0';
+--V_CLK <= '0';
 
-process (CLK_50MHZ) 
+process (clk_vga) 
 begin 
-
-if rising_edge(CLK_50MHZ) then
-	cnt <= cnt + 1;
-	if cnt = 0 then 
-		led <= not led;
+	if rising_edge(clk_vga) then
+		cnt <= cnt + 1;
+		if cnt = 0 then 
+			led <= not led;
+		end if;
 	end if;
-end if;
-
-SD_CS_N <= led;
-
+	SD_CS_N <= led;
 end process;
 
+hsync	<= '0' when (hcnt <= h_sync_on) or (hcnt > h_sync_off) else '1';
+vsync	<= '0' when (vcnt <= v_sync_on) or (vcnt > v_sync_off) else '1';
+blank	<= '1' when (hcnt > h_pixels_across) or (vcnt > v_pixels_down) else '0';
+
+red	<= "11111111" when hcnt = 0 or hcnt = h_pixels_across or vcnt = 0 or vcnt = v_pixels_down else (hcnt(7 downto 0) + shift) and "11111111";
+green	<= "11111111" when hcnt = 0 or hcnt = h_pixels_across or vcnt = 0 or vcnt = v_pixels_down else (vcnt(7 downto 0) + shift) and "11111111";
+blue	<= "11111111" when hcnt = 0 or hcnt = h_pixels_across or vcnt = 0 or vcnt = v_pixels_down else (hcnt(7 downto 0) + vcnt(7 downto 0) - shift) and "11111111";
+
+pll0_inst: entity work.pll 
+port map(
+	CLK_IN1 => CLK_50MHZ,
+	CLK_OUT1 => clk_vga
+);
+
+process (clk_vga, hcnt)
+begin
+	if clk_vga'event and clk_vga = '1' then
+		if hcnt = h_end_count then
+			hcnt <= (others => '0');
+		else
+			hcnt <= hcnt + 1;
+		end if;
+		if hcnt = h_sync_on then
+			if vcnt = v_end_count then
+				vcnt <= (others => '0');
+				shift <= shift + 1;
+			else
+				vcnt <= vcnt + 1;
+			end if;
+		end if;
+	end if;
+end process;
+
+VGA_R <= red;
+VGA_G <= green;
+VGA_B <= blue;
+VGA_HS <= hsync;
+VGA_VS <= vsync;
+
+ODDR2_inst: ODDR2
+port map(
+	Q => V_CLK,
+	C0 => clk_vga,
+	C1 => not(clk_vga),
+	CE => '1',
+	D0 => '1',
+	D1 => '0',
+	R => '0',
+	S => '0'
+);
+
+--V_CLK <= clk_vga; -- 83.46 MHz
 
 end Behavioral;
 

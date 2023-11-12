@@ -1,7 +1,7 @@
 Release 14.7 Drc P.20131013 (lin)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-Tue Nov  7 00:47:38 2023
+Sun Nov 12 17:49:21 2023
 
 drc -z karabas_go.ncd karabas_go.pcf
 

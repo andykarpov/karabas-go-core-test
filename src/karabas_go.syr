@@ -108,44 +108,84 @@ Slice Utilization Ratio Delta      : 5
 =========================================================================
 *                          HDL Parsing                                  *
 =========================================================================
-Parsing VHDL file "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas-go.vhd" into library work
+Parsing VHDL file "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/ipcore_dir/pll.vhd" into library work
+Parsing entity <pll>.
+Parsing architecture <xilinx> of entity <pll>.
+Parsing VHDL file "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" into library work
 Parsing entity <karabas_go>.
 Parsing architecture <Behavioral> of entity <karabas_go>.
+WARNING:HDLCompiler:946 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 234: Actual for formal port c1 is neither a static name nor a globally static expression
 
 =========================================================================
 *                            HDL Elaboration                            *
 =========================================================================
 
 Elaborating entity <karabas_go> (architecture <Behavioral>) from library <work>.
-WARNING:HDLCompiler:92 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas-go.vhd" Line 155: led should be on the sensitivity list of the process
+WARNING:HDLCompiler:92 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 188: led should be on the sensitivity list of the process
+WARNING:HDLCompiler:1127 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 193: Assignment to blank ignored, since the identifier is never used
+
+Elaborating entity <pll> (architecture <xilinx>) from library <work>.
+WARNING:HDLCompiler:89 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 128: <oddr2> remains a black-box since it has no binding entity.
 
 =========================================================================
 *                           HDL Synthesis                               *
 =========================================================================
 
 Synthesizing Unit <karabas_go>.
-    Related source file is "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karabas-go/karabas-go.vhd".
+    Related source file is "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd".
 WARNING:Xst:647 - Input <TAPE_IN> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <SD_DET_N> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <MCU_CS_N> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <MCU_SCK> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
     Found 1-bit register for signal <led>.
+    Found 12-bit register for signal <hcnt>.
+    Found 12-bit register for signal <vcnt>.
+    Found 8-bit register for signal <shift>.
     Found 27-bit register for signal <cnt>.
-    Found 27-bit adder for signal <cnt[26]_GND_6_o_add_12_OUT> created at line 149.
+    Found 27-bit adder for signal <cnt[26]_GND_6_o_add_9_OUT> created at line 183.
+    Found 8-bit adder for signal <hcnt[7]_PWR_6_o_and_23_OUT> created at line 195.
+    Found 8-bit adder for signal <vcnt[7]_PWR_6_o_and_30_OUT> created at line 196.
+    Found 8-bit adder for signal <hcnt[7]_vcnt[7]_add_36_OUT> created at line 197.
+    Found 12-bit adder for signal <hcnt[11]_GND_6_o_add_41_OUT> created at line 211.
+    Found 8-bit adder for signal <shift[7]_GND_6_o_add_45_OUT> created at line 216.
+    Found 12-bit adder for signal <vcnt[11]_GND_6_o_add_46_OUT> created at line 218.
+    Found 8-bit subtractor for signal <GND_6_o_PWR_6_o_and_38_OUT> created at line 197.
+    Found 12-bit comparator lessequal for signal <n0014> created at line 191
+    Found 12-bit comparator greater for signal <GND_6_o_hcnt[11]_LessThan_14_o> created at line 191
+    Found 12-bit comparator lessequal for signal <n0019> created at line 192
+    Found 12-bit comparator greater for signal <GND_6_o_vcnt[11]_LessThan_16_o> created at line 192
     Summary:
-	inferred   1 Adder/Subtractor(s).
-	inferred  28 D-type flip-flop(s).
+	inferred   8 Adder/Subtractor(s).
+	inferred  60 D-type flip-flop(s).
+	inferred   4 Comparator(s).
+	inferred   3 Multiplexer(s).
 Unit <karabas_go> synthesized.
+
+Synthesizing Unit <pll>.
+    Related source file is "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/ipcore_dir/pll.vhd".
+    Summary:
+	no macro.
+Unit <pll> synthesized.
 
 =========================================================================
 HDL Synthesis Report
 
 Macro Statistics
-# Adders/Subtractors                                   : 1
+# Adders/Subtractors                                   : 8
+ 12-bit adder                                          : 2
  27-bit adder                                          : 1
-# Registers                                            : 2
+ 8-bit adder                                           : 4
+ 8-bit subtractor                                      : 1
+# Registers                                            : 5
  1-bit register                                        : 1
+ 12-bit register                                       : 2
  27-bit register                                       : 1
+ 8-bit register                                        : 1
+# Comparators                                          : 4
+ 12-bit comparator greater                             : 2
+ 12-bit comparator lessequal                           : 2
+# Multiplexers                                         : 3
+ 8-bit 2-to-1 multiplexer                              : 3
 
 =========================================================================
 
@@ -156,28 +196,43 @@ Macro Statistics
 
 Synthesizing (advanced) Unit <karabas_go>.
 The following registers are absorbed into counter <cnt>: 1 register on signal <cnt>.
+The following registers are absorbed into counter <hcnt>: 1 register on signal <hcnt>.
+The following registers are absorbed into counter <shift>: 1 register on signal <shift>.
+The following registers are absorbed into counter <vcnt>: 1 register on signal <vcnt>.
 Unit <karabas_go> synthesized (advanced).
 
 =========================================================================
 Advanced HDL Synthesis Report
 
 Macro Statistics
-# Counters                                             : 1
+# Adders/Subtractors                                   : 4
+ 8-bit adder                                           : 3
+ 8-bit subtractor                                      : 1
+# Counters                                             : 4
+ 12-bit up counter                                     : 2
  27-bit up counter                                     : 1
+ 8-bit up counter                                      : 1
 # Registers                                            : 1
  Flip-Flops                                            : 1
+# Comparators                                          : 4
+ 12-bit comparator greater                             : 2
+ 12-bit comparator lessequal                           : 2
+# Multiplexers                                         : 3
+ 8-bit 2-to-1 multiplexer                              : 3
 
 =========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
+INFO:Xst:1901 - Instance pll0_inst/pll_base_inst in unit pll0_inst/pll_base_inst of type PLL_BASE has been replaced by PLL_ADV
 
 Optimizing unit <karabas_go> ...
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 5) on block karabas_go, actual ratio is 0.
+Found area constraint ratio of 100 (+ 5) on block karabas_go, actual ratio is 1.
+FlipFlop vcnt_5 has been replicated 1 time(s)
 
 Final Macro Processing ...
 
@@ -185,8 +240,8 @@ Final Macro Processing ...
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 28
- Flip-Flops                                            : 28
+# Registers                                            : 61
+ Flip-Flops                                            : 61
 
 =========================================================================
 
@@ -209,22 +264,29 @@ Top Level Output File Name         : karabas_go.ngc
 
 Primitive and Black Box Usage:
 ------------------------------
-# BELS                             : 88
+# BELS                             : 348
 #      GND                         : 1
-#      INV                         : 1
-#      LUT1                        : 26
-#      LUT3                        : 1
-#      LUT6                        : 5
-#      MUXCY                       : 26
+#      INV                         : 6
+#      LUT1                        : 55
+#      LUT2                        : 30
+#      LUT3                        : 17
+#      LUT4                        : 17
+#      LUT5                        : 38
+#      LUT6                        : 24
+#      MUXCY                       : 76
 #      VCC                         : 1
-#      XORCY                       : 27
-# FlipFlops/Latches                : 28
-#      FD                          : 28
-# Clock Buffers                    : 1
-#      BUFG                        : 1
+#      XORCY                       : 83
+# FlipFlops/Latches                : 62
+#      FD                          : 52
+#      FDE                         : 9
+#      ODDR2                       : 1
+# Clock Buffers                    : 2
+#      BUFG                        : 2
 # IO Buffers                       : 99
-#      IBUF                        : 1
+#      IBUFG                       : 1
 #      OBUF                        : 98
+# Others                           : 1
+#      PLL_ADV                     : 1
 
 Device utilization summary:
 ---------------------------
@@ -233,23 +295,24 @@ Selected Device : 6slx25ftg256-2
 
 
 Slice Logic Utilization: 
- Number of Slice Registers:              28  out of  30064     0%  
- Number of Slice LUTs:                   33  out of  15032     0%  
-    Number used as Logic:                33  out of  15032     0%  
+ Number of Slice Registers:              62  out of  30064     0%  
+ Number of Slice LUTs:                  187  out of  15032     1%  
+    Number used as Logic:               187  out of  15032     1%  
 
 Slice Logic Distribution: 
- Number of LUT Flip Flop pairs used:     33
-   Number with an unused Flip Flop:       5  out of     33    15%  
-   Number with an unused LUT:             0  out of     33     0%  
-   Number of fully used LUT-FF pairs:    28  out of     33    84%  
-   Number of unique control sets:         1
+ Number of LUT Flip Flop pairs used:    189
+   Number with an unused Flip Flop:     127  out of    189    67%  
+   Number with an unused LUT:             2  out of    189     1%  
+   Number of fully used LUT-FF pairs:    60  out of    189    31%  
+   Number of unique control sets:         3
 
 IO Utilization: 
  Number of IOs:                         170
  Number of bonded IOBs:                  99  out of    186    53%  
 
 Specific Feature Utilization:
- Number of BUFG/BUFGCTRLs:                1  out of     16     6%  
+ Number of BUFG/BUFGCTRLs:                2  out of     16    12%  
+ Number of PLL_ADVs:                      1  out of      2    50%  
 
 ---------------------------
 Partition Resource Summary:
@@ -272,7 +335,7 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-CLK_50MHZ                          | IBUF+BUFG              | 28    |
+pll0_inst/pll_base_inst/CLKOUT0    | BUFG                   | 63    |
 -----------------------------------+------------------------+-------+
 
 Asynchronous Control Signals Information:
@@ -283,100 +346,86 @@ Timing Summary:
 ---------------
 Speed Grade: -2
 
-   Minimum period: 3.246ns (Maximum Frequency: 308.071MHz)
+   Minimum period: 4.753ns (Maximum Frequency: 210.393MHz)
    Minimum input arrival time before clock: No path found
-   Maximum output required time after clock: 4.162ns
-   Maximum combinational path delay: 4.921ns
+   Maximum output required time after clock: 9.400ns
+   Maximum combinational path delay: No path found
 
 Timing Details:
 ---------------
 All values displayed in nanoseconds (ns)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'CLK_50MHZ'
-  Clock period: 3.246ns (frequency: 308.071MHz)
-  Total number of paths / destination ports: 406 / 28
+Timing constraint: Default period analysis for Clock 'pll0_inst/pll_base_inst/CLKOUT0'
+  Clock period: 4.753ns (frequency: 210.393MHz)
+  Total number of paths / destination ports: 1437 / 70
 -------------------------------------------------------------------------
-Delay:               3.246ns (Levels of Logic = 2)
-  Source:            cnt_19 (FF)
-  Destination:       led (FF)
-  Source Clock:      CLK_50MHZ rising
-  Destination Clock: CLK_50MHZ rising
+Delay:               4.753ns (Levels of Logic = 3)
+  Source:            hcnt_11 (FF)
+  Destination:       vcnt_0 (FF)
+  Source Clock:      pll0_inst/pll_base_inst/CLKOUT0 rising
+  Destination Clock: pll0_inst/pll_base_inst/CLKOUT0 rising
 
-  Data Path: cnt_19 to led
+  Data Path: hcnt_11 to vcnt_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q               2   0.525   1.181  cnt_19 (cnt_19)
-     LUT6:I0->O            1   0.254   0.958  GND_6_o_GND_6_o_equal_14_o<26>4 (GND_6_o_GND_6_o_equal_14_o<26>3)
-     LUT6:I2->O            1   0.254   0.000  led_rstpot (led_rstpot)
-     FD:D                      0.074          led
+     FD:C->Q               5   0.525   1.296  hcnt_11 (hcnt_11)
+     LUT6:I0->O           21   0.254   1.310  GND_6_o_GND_6_o_OR_45_o21 (GND_6_o_GND_6_o_OR_45_o2)
+     LUT6:I5->O            1   0.254   0.790  GND_6_o_GND_6_o_equal_44_o<11> (GND_6_o_GND_6_o_equal_44_o)
+     LUT4:I2->O            1   0.250   0.000  vcnt_0_rstpot1 (vcnt_0_rstpot1)
+     FD:D                      0.074          vcnt_0
     ----------------------------------------
-    Total                      3.246ns (1.107ns logic, 2.139ns route)
-                                       (34.1% logic, 65.9% route)
+    Total                      4.753ns (1.357ns logic, 3.396ns route)
+                                       (28.6% logic, 71.4% route)
 
 =========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK_50MHZ'
-  Total number of paths / destination ports: 1 / 1
+Timing constraint: Default OFFSET OUT AFTER for Clock 'pll0_inst/pll_base_inst/CLKOUT0'
+  Total number of paths / destination ports: 1437 / 27
 -------------------------------------------------------------------------
-Offset:              4.162ns (Levels of Logic = 1)
-  Source:            led (FF)
-  Destination:       SD_CS_N (PAD)
-  Source Clock:      CLK_50MHZ rising
+Offset:              9.400ns (Levels of Logic = 4)
+  Source:            hcnt_11 (FF)
+  Destination:       VGA_R<7> (PAD)
+  Source Clock:      pll0_inst/pll_base_inst/CLKOUT0 rising
 
-  Data Path: led to SD_CS_N
+  Data Path: hcnt_11 to VGA_R<7>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q               2   0.525   0.725  led (led)
-     OBUF:I->O                 2.912          SD_CS_N_OBUF (SD_CS_N)
+     FD:C->Q               5   0.525   1.296  hcnt_11 (hcnt_11)
+     LUT6:I0->O           21   0.254   1.418  GND_6_o_GND_6_o_OR_45_o21 (GND_6_o_GND_6_o_OR_45_o2)
+     LUT6:I4->O           24   0.250   1.810  GND_6_o_GND_6_o_OR_45_o4 (GND_6_o_GND_6_o_OR_45_o5)
+     LUT5:I0->O            1   0.254   0.681  Mmux_VGA_B81 (VGA_B_7_OBUF)
+     OBUF:I->O                 2.912          VGA_B_7_OBUF (VGA_B<7>)
     ----------------------------------------
-    Total                      4.162ns (3.437ns logic, 0.725ns route)
-                                       (82.6% logic, 17.4% route)
-
-=========================================================================
-Timing constraint: Default path analysis
-  Total number of paths / destination ports: 1 / 1
--------------------------------------------------------------------------
-Delay:               4.921ns (Levels of Logic = 2)
-  Source:            CLK_50MHZ (PAD)
-  Destination:       TAPE_OUT (PAD)
-
-  Data Path: CLK_50MHZ to TAPE_OUT
-                                Gate     Net
-    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
-    ----------------------------------------  ------------
-     IBUF:I->O             1   1.328   0.681  CLK_50MHZ_IBUF (TAPE_OUT_OBUF)
-     OBUF:I->O                 2.912          TAPE_OUT_OBUF (TAPE_OUT)
-    ----------------------------------------
-    Total                      4.921ns (4.240ns logic, 0.681ns route)
-                                       (86.2% logic, 13.8% route)
+    Total                      9.400ns (4.195ns logic, 5.205ns route)
+                                       (44.6% logic, 55.4% route)
 
 =========================================================================
 
 Cross Clock Domains Report:
 --------------------------
 
-Clock to Setup on destination clock CLK_50MHZ
----------------+---------+---------+---------+---------+
-               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
-Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
----------------+---------+---------+---------+---------+
-CLK_50MHZ      |    3.246|         |         |         |
----------------+---------+---------+---------+---------+
+Clock to Setup on destination clock pll0_inst/pll_base_inst/CLKOUT0
+-------------------------------+---------+---------+---------+---------+
+                               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock                   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+-------------------------------+---------+---------+---------+---------+
+pll0_inst/pll_base_inst/CLKOUT0|    4.753|         |         |         |
+-------------------------------+---------+---------+---------+---------+
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 5.00 secs
-Total CPU time to Xst completion: 5.12 secs
+Total REAL time to Xst completion: 6.00 secs
+Total CPU time to Xst completion: 5.98 secs
  
 --> 
 
 
-Total memory usage is 132832 kilobytes
+Total memory usage is 141860 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :    5 (   0 filtered)
-Number of infos    :    0 (   0 filtered)
+Number of warnings :    8 (   0 filtered)
+Number of infos    :    1 (   0 filtered)
 

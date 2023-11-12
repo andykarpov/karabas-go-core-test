@@ -6,14 +6,21 @@ ise -dd _ngo -nt timestamp -uc karabas_go.ucf -p xc6slx25-ftg256-2
 karabas_go.ngc karabas_go.ngd
 
 Reading NGO file
-"/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go-test-core/karaba
-s-go/karabas_go.ngc" ...
+"/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-
+test/src/karabas_go.ngc" ...
 Gathering constraint information from source properties...
 Done.
 
 Annotating constraints to design from ucf file "karabas_go.ucf" ...
 Resolving constraint associations...
 Checking Constraint Associations...
+INFO:ConstraintSystem:178 - TNM 'sys_clk_pin', used in period specification
+   'TS_sys_clk_pin', was traced into PLL_ADV instance PLL_ADV. The following new
+   TNM groups and period specifications were generated at the PLL_ADV output(s):
+    
+   CLKOUT0: <TIMESPEC TS_pll0_inst_clkout0 = PERIOD "pll0_inst_clkout0"
+   TS_sys_clk_pin * 1.666666667 HIGH 50%>
+
 Done...
 
 Checking expanded design ...
@@ -96,10 +103,10 @@ NGDBUILD Design Results Summary:
   Number of errors:     0
   Number of warnings:  67
 
-Total memory usage is 114092 kilobytes
+Total memory usage is 115148 kilobytes
 
 Writing NGD file "karabas_go.ngd" ...
-Total REAL time to NGDBUILD completion:  2 sec
+Total REAL time to NGDBUILD completion:  3 sec
 Total CPU time to NGDBUILD completion:   2 sec
 
 Writing NGDBUILD log file "karabas_go.bld"...

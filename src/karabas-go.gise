@@ -111,7 +111,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1699227680" xil_pn:in_ck="6486157087340746728" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="8043160861892639962" xil_pn:start_ts="1699227671">
+    <transform xil_pn:end_ts="1699804114" xil_pn:in_ck="4959824767077717263" xil_pn:name="TRANEXT_xstsynthesize_spartan6" xil_pn:prop_ck="8043160861892639962" xil_pn:start_ts="1699804105">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -133,7 +133,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1699227686" xil_pn:in_ck="4749342168847255590" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="-6174025444568972372" xil_pn:start_ts="1699227680">
+    <transform xil_pn:end_ts="1699804121" xil_pn:in_ck="4749342168847255590" xil_pn:name="TRANEXT_ngdbuild_FPGA" xil_pn:prop_ck="-6174025444568972372" xil_pn:start_ts="1699804114">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -143,11 +143,9 @@
       <outfile xil_pn:name="karabas_go.ngd"/>
       <outfile xil_pn:name="karabas_go_ngdbuild.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1699227698" xil_pn:in_ck="-5146639344597731865" xil_pn:name="TRANEXT_map_spartan6" xil_pn:prop_ck="325589658960453222" xil_pn:start_ts="1699227686">
+    <transform xil_pn:end_ts="1699804134" xil_pn:in_ck="-5146639344597731865" xil_pn:name="TRANEXT_map_spartan6" xil_pn:prop_ck="325589658960453222" xil_pn:start_ts="1699804121">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="_xmsgs/map.xmsgs"/>
       <outfile xil_pn:name="karabas_go.pcf"/>
       <outfile xil_pn:name="karabas_go_map.map"/>
@@ -158,7 +156,7 @@
       <outfile xil_pn:name="karabas_go_summary.xml"/>
       <outfile xil_pn:name="karabas_go_usage.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1699227715" xil_pn:in_ck="3787982708691113280" xil_pn:name="TRANEXT_par_spartan6" xil_pn:prop_ck="-6937897011652631087" xil_pn:start_ts="1699227698">
+    <transform xil_pn:end_ts="1699804156" xil_pn:in_ck="3787982708691113280" xil_pn:name="TRANEXT_par_spartan6" xil_pn:prop_ck="-6937897011652631087" xil_pn:start_ts="1699804134">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -173,7 +171,7 @@
       <outfile xil_pn:name="karabas_go_pad.txt"/>
       <outfile xil_pn:name="karabas_go_par.xrpt"/>
     </transform>
-    <transform xil_pn:end_ts="1699310866" xil_pn:in_ck="6486157151914136301" xil_pn:name="TRANEXT_bitFile_spartan6" xil_pn:prop_ck="-2930751410266757332" xil_pn:start_ts="1699310852">
+    <transform xil_pn:end_ts="1699804172" xil_pn:in_ck="6486157151914136301" xil_pn:name="TRANEXT_bitFile_spartan6" xil_pn:prop_ck="-2930751410266757332" xil_pn:start_ts="1699804156">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -187,7 +185,7 @@
       <outfile xil_pn:name="webtalk.log"/>
       <outfile xil_pn:name="webtalk_pn.xml"/>
     </transform>
-    <transform xil_pn:end_ts="1699227715" xil_pn:in_ck="-8595908803237552541" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416184" xil_pn:start_ts="1699227708">
+    <transform xil_pn:end_ts="1699804156" xil_pn:in_ck="-8595908803237552541" xil_pn:name="TRAN_postRouteTrce" xil_pn:prop_ck="445577401284416184" xil_pn:start_ts="1699804148">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="_xmsgs/trce.xmsgs"/>
