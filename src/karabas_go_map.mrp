@@ -10,7 +10,7 @@ Target Device  : xc6slx25
 Target Package : ftg256
 Target Speed   : -2
 Mapper Version : spartan6 -- $Revision: 1.55 $
-Mapped Date    : Sun Nov 12 17:48:44 2023
+Mapped Date    : Sun Nov 12 22:24:52 2023
 
 Design Summary
 --------------
@@ -24,9 +24,9 @@ Slice Logic Utilization:
     Number used as AND/OR logics:                5
   Number of Slice LUTs:                        179 out of  15,032    1%
     Number used as logic:                      175 out of  15,032    1%
-      Number using O6 output only:             114
+      Number using O6 output only:             101
       Number using O5 output only:              51
-      Number using O5 and O6:                   10
+      Number using O5 and O6:                   23
       Number used as ROM:                        0
     Number used as Memory:                       0 out of   3,664    0%
     Number used exclusively as route-thrus:      4
@@ -35,7 +35,7 @@ Slice Logic Utilization:
       Number with other load:                    0
 
 Slice Logic Distribution:
-  Number of occupied Slices:                    64 out of   3,758    1%
+  Number of occupied Slices:                    58 out of   3,758    1%
   Number of MUXCYs used:                        84 out of   7,516    1%
   Number of LUT Flip Flop pairs used:          179
     Number with an unused Flip Flop:           113 out of     179   63%
@@ -68,7 +68,9 @@ Specific Feature Utilization:
   Number of BUFG/BUFGMUXs:                       2 out of      16   12%
     Number used as BUFGs:                        2
     Number used as BUFGMUX:                      0
-  Number of DCM/DCM_CLKGENs:                     0 out of       4    0%
+  Number of DCM/DCM_CLKGENs:                     1 out of       4   25%
+    Number used as DCMs:                         1
+    Number used as DCM_CLKGENs:                  0
   Number of ILOGIC2/ISERDES2s:                   0 out of     272    0%
   Number of IODELAY2/IODRP2/IODRP2_MCBs:         0 out of     272    0%
   Number of OLOGIC2/OSERDES2s:                   1 out of     272    1%
@@ -82,12 +84,12 @@ Specific Feature Utilization:
   Number of ICAPs:                               0 out of       1    0%
   Number of MCBs:                                0 out of       2    0%
   Number of PCILOGICSEs:                         0 out of       2    0%
-  Number of PLL_ADVs:                            1 out of       2   50%
+  Number of PLL_ADVs:                            0 out of       2    0%
   Number of PMVs:                                0 out of       1    0%
   Number of STARTUPs:                            0 out of       1    0%
   Number of SUSPEND_SYNCs:                       0 out of       1    0%
 
-Average Fanout of Non-Clock Nets:                2.27
+Average Fanout of Non-Clock Nets:                2.21
 
 Peak Memory Usage:  268 MB
 Total REAL time to MAP completion:  9 secs 
@@ -136,6 +138,9 @@ INFO:Pack:1720 - Initializing voltage to 1.140 Volts. (default - Range: 1.140 to
 INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
    (.mrp).
 INFO:Pack:1650 - Map created a placed design.
+INFO:PhysDesignRules:1861 - To achieve optimal frequency synthesis performance
+   with the CLKFX and CLKFX180 outputs of the DCM comp pll0_inst/dcm_sp_inst,
+   consult the device Data Sheet.
 
 Section 4 - Removed Logic Summary
 ---------------------------------

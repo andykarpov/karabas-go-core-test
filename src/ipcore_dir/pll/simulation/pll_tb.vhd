@@ -82,7 +82,7 @@ architecture test of pll_tb is
 
 
   -- we'll be using the period in many locations
-  constant PER1        : time := 20.000 ns;
+  constant PER1        : time := 20.0 ns;
 
 
   -- Declare the input clock signals

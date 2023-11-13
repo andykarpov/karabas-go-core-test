@@ -6,7 +6,7 @@ Loading device for application Rf_Device from file '6slx25.nph' in environment
 -2
 Opened constraints file karabas_go.pcf.
 
-Sun Nov 12 17:49:21 2023
+Sun Nov 12 22:25:25 2023
 
 /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin/unwrapped/bitgen -intstyle ise -w -g Binary:yes -g Compress -g CRC:Enable -g Reset_on_err:No -g ConfigRate:2 -g ProgPin:PullUp -g TckPin:PullUp -g TdiPin:PullUp -g TdoPin:PullUp -g TmsPin:PullUp -g UnusedPin:PullDown -g UserID:0xFFFFFFFF -g ExtMasterCclk_en:No -g SPI_buswidth:1 -g TIMER_CFG:0xFFFF -g multipin_wakeup:No -g StartUpClk:CClk -g DONE_cycle:4 -g GTS_cycle:5 -g GWE_cycle:6 -g LCK_cycle:NoWait -g Security:None -g DonePipe:Yes -g DriveDone:Yes -g en_sw_gsr:No -g drive_awake:No -g sw_clk:Startupclk -g sw_gwe_cycle:5 -g sw_gts_cycle:4 karabas_go.ncd 
 
@@ -131,10 +131,13 @@ There were 0 CONFIG constraint(s) processed from karabas_go.pcf.
 Running DRC.
 WARNING:PhysDesignRules:781 - PULLUP on an active net. PULLUP of comp
    SD_CS_N_PULLUP is set but the tri state is not configured. 
+INFO:PhysDesignRules:1861 - To achieve optimal frequency synthesis performance
+   with the CLKFX and CLKFX180 outputs of the DCM comp pll0_inst/dcm_sp_inst,
+   consult the device Data Sheet.
 DRC detected 0 errors and 1 warnings.  Please see the previously displayed
 individual error or warning messages for more details.
 Creating bit map...
 Saving bit stream in "karabas_go.bit".
-Bitstream compression saved 4049584 bits.
+Bitstream compression saved 4078704 bits.
 Saving bit stream in "karabas_go.bin".
 Bitstream generation is complete.

@@ -15,11 +15,11 @@ Annotating constraints to design from ucf file "karabas_go.ucf" ...
 Resolving constraint associations...
 Checking Constraint Associations...
 INFO:ConstraintSystem:178 - TNM 'sys_clk_pin', used in period specification
-   'TS_sys_clk_pin', was traced into PLL_ADV instance PLL_ADV. The following new
-   TNM groups and period specifications were generated at the PLL_ADV output(s):
-    
-   CLKOUT0: <TIMESPEC TS_pll0_inst_clkout0 = PERIOD "pll0_inst_clkout0"
-   TS_sys_clk_pin * 1.666666667 HIGH 50%>
+   'TS_sys_clk_pin', was traced into DCM_SP instance pll0_inst/dcm_sp_inst. The
+   following new TNM groups and period specifications were generated at the
+   DCM_SP output(s): 
+   CLKFX: <TIMESPEC TS_pll0_inst_clkfx = PERIOD "pll0_inst_clkfx" TS_sys_clk_pin
+   * 0.8 HIGH 50%>
 
 Done...
 
@@ -103,7 +103,7 @@ NGDBUILD Design Results Summary:
   Number of errors:     0
   Number of warnings:  67
 
-Total memory usage is 115148 kilobytes
+Total memory usage is 115136 kilobytes
 
 Writing NGD file "karabas_go.ngd" ...
 Total REAL time to NGDBUILD completion:  3 sec

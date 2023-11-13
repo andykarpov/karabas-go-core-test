@@ -104,15 +104,15 @@ signal cnt: std_logic_vector(26 downto 0) := (others => '0');
 signal led: std_logic := '0';
 
 -- Horizontal Timing constants  
-constant h_pixels_across	: integer := 1280 - 1;
-constant h_sync_on		: integer := 1344 - 1;
-constant h_sync_off		: integer := 1480 - 1;
-constant h_end_count		: integer := 1680 - 1;
+constant h_pixels_across	: integer := 800 - 1;
+constant h_sync_on		: integer := 840 - 1;
+constant h_sync_off		: integer := 968 - 1;
+constant h_end_count		: integer := 1056 - 1;
 -- Vertical Timing constants
-constant v_pixels_down		: integer := 800 - 1;
-constant v_sync_on		: integer := 801 - 1;
-constant v_sync_off		: integer := 804 - 1;
-constant v_end_count		: integer := 828 - 1;
+constant v_pixels_down		: integer := 600 - 1;
+constant v_sync_on		: integer := 601 - 1;
+constant v_sync_off		: integer := 605 - 1;
+constant v_end_count		: integer := 628 - 1;
 
 signal hcnt		: std_logic_vector(11 downto 0) := "000000000000"; 	-- horizontal pixel counter
 signal vcnt		: std_logic_vector(11 downto 0) := "000000000000"; 	-- vertical line counter
@@ -221,9 +221,9 @@ begin
 	end if;
 end process;
 
-VGA_R <= red;
-VGA_G <= green;
-VGA_B <= blue;
+VGA_R <= red when blank = '0' else "00000000";
+VGA_G <= green when blank = '0' else "00000000";
+VGA_B <= blue when blank = '0' else "00000000";
 VGA_HS <= hsync;
 VGA_VS <= vsync;
 

@@ -5,7 +5,7 @@
     The structure and the elements are likely to change over the next few releases.
     This means code written to parse this file will need to be revisited each subsequent release.-->
 
-  <application stringID="Map" timeStamp="Sun Nov 12 17:48:53 2023">
+  <application stringID="Map" timeStamp="Sun Nov 12 22:25:01 2023">
     <section stringID="User_Env">
       <table stringID="User_EnvVar">
         <column stringID="variable"/>
@@ -61,8 +61,8 @@
       </item>
       <item AVAILABLE="15032" dataType="int" label="Number of Slice LUTs" stringID="MAP_SLICE_LUTS" value="179">
         <item dataType="int" label="Number using O5 output only" stringID="MAP_NUM_LOGIC_O5ONLY" value="51"/>
-        <item dataType="int" label="Number using O6 output only" stringID="MAP_NUM_LOGIC_O6ONLY" value="114"/>
-        <item dataType="int" label="Number using O5 and O6" stringID="MAP_NUM_LOGIC_O5ANDO6" value="10"/>
+        <item dataType="int" label="Number using O6 output only" stringID="MAP_NUM_LOGIC_O6ONLY" value="101"/>
+        <item dataType="int" label="Number using O5 and O6" stringID="MAP_NUM_LOGIC_O5ANDO6" value="23"/>
         <item dataType="int" stringID="MAP_NUM_ROM_O5ONLY" value="0"/>
         <item dataType="int" stringID="MAP_NUM_ROM_O6ONLY" value="0"/>
         <item dataType="int" stringID="MAP_NUM_ROM_O5ANDO6" value="0"/>
@@ -105,7 +105,7 @@
         <item dataType="int" stringID="MAP_NUM_ERRORS" value="0"/>
         <item dataType="int" stringID="MAP_FILTERED_WARNINGS" value="0"/>
         <item dataType="int" stringID="MAP_NUM_WARNINGS" value="1"/>
-        <item UNITS="KB" dataType="int" stringID="MAP_PEAK_MEMORY" value="274036"/>
+        <item UNITS="KB" dataType="int" stringID="MAP_PEAK_MEMORY" value="274092"/>
         <item stringID="MAP_TOTAL_REAL_TIME" value="9 secs "/>
         <item stringID="MAP_TOTAL_CPU_TIME" value="9 secs "/>
       </section>
@@ -118,8 +118,8 @@
         </item>
         <item AVAILABLE="15032" dataType="int" label="Number of Slice LUTs" stringID="MAP_SLICE_LUTS" value="179">
           <item dataType="int" label="Number using O5 output only" stringID="MAP_NUM_LOGIC_O5ONLY" value="51"/>
-          <item dataType="int" label="Number using O6 output only" stringID="MAP_NUM_LOGIC_O6ONLY" value="114"/>
-          <item dataType="int" label="Number using O5 and O6" stringID="MAP_NUM_LOGIC_O5ANDO6" value="10"/>
+          <item dataType="int" label="Number using O6 output only" stringID="MAP_NUM_LOGIC_O6ONLY" value="101"/>
+          <item dataType="int" label="Number using O5 and O6" stringID="MAP_NUM_LOGIC_O5ANDO6" value="23"/>
           <item dataType="int" stringID="MAP_NUM_ROM_O5ONLY" value="0"/>
           <item dataType="int" stringID="MAP_NUM_ROM_O6ONLY" value="0"/>
           <item dataType="int" stringID="MAP_NUM_ROM_O5ANDO6" value="0"/>
@@ -139,10 +139,10 @@
           <item dataType="int" stringID="MAP_NUM_LUT_RT_DRIVES_CARRY4" value="4"/>
           <item dataType="int" stringID="MAP_NUM_LUT_RT_DRIVES_OTHERS" value="0"/>
         </item>
-        <item AVAILABLE="3758" dataType="int" label="Number of occupied Slices" stringID="MAP_OCCUPIED_SLICES" value="64">
+        <item AVAILABLE="3758" dataType="int" label="Number of occupied Slices" stringID="MAP_OCCUPIED_SLICES" value="58">
           <item AVAILABLE="963" dataType="int" stringID="MAP_NUM_SLICEL" value="21"/>
           <item AVAILABLE="916" dataType="int" stringID="MAP_NUM_SLICEM" value="0"/>
-          <item AVAILABLE="1879" dataType="int" stringID="MAP_NUM_SLICEX" value="43"/>
+          <item AVAILABLE="1879" dataType="int" stringID="MAP_NUM_SLICEX" value="37"/>
         </item>
         <item dataType="int" label="Number of LUT Flip Flop pairs used" stringID="MAP_OCCUPIED_LUT_AND_FF" value="179">
           <item dataType="int" stringID="MAP_OCCUPIED_LUT_ONLY" value="113"/>
@@ -180,7 +180,7 @@
         <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_MCB" value="0"/>
         <item AVAILABLE="0" dataType="int" stringID="MAP_NUM_PCIE_A1" value="0"/>
         <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_PCILOGICSE" value="0"/>
-        <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_PLL_ADV" value="1"/>
+        <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_PLL_ADV" value="0"/>
         <item AVAILABLE="1" dataType="int" stringID="MAP_NUM_PMV" value="0"/>
         <item AVAILABLE="1" dataType="int" stringID="MAP_NUM_STARTUP" value="0"/>
         <item AVAILABLE="1" dataType="int" stringID="MAP_NUM_SUSPEND_SYNC" value="0"/>
@@ -1456,30 +1456,21 @@
       <section stringID="MAP_TIMING_REPORT"/>
       <section stringID="MAP_CONFIGURATION_STRING_DETAILS"/>
       <section stringID="MAP_GENERAL_CONFIG_DATA">
-        <item stringID="MAP_BANDWIDTH" value="OPTIMIZED"/>
-        <item stringID="MAP_CLK_FEEDBACK" value="CLKFBOUT"/>
-        <item stringID="MAP_COMPENSATION" value="SYSTEM_SYNCHRONOUS"/>
-        <item stringID="MAP_CLKFBOUT_PHASE" value="0.0"/>
-        <item stringID="MAP_CLKIN1_PERIOD" value="20"/>
-        <item stringID="MAP_CLKIN2_PERIOD" value="20"/>
-        <item stringID="MAP_CLKOUT0_DUTY_CYCLE" value="0.5"/>
-        <item stringID="MAP_CLKOUT0_PHASE" value="0.0"/>
-        <item stringID="MAP_CLKOUT1_DIVIDE" value="1"/>
-        <item stringID="MAP_CLKOUT1_DUTY_CYCLE" value="0.5"/>
-        <item stringID="MAP_CLKOUT1_PHASE" value="0.0"/>
-        <item stringID="MAP_CLKOUT2_DIVIDE" value="1"/>
-        <item stringID="MAP_CLKOUT2_DUTY_CYCLE" value="0.5"/>
-        <item stringID="MAP_CLKOUT2_PHASE" value="0.0"/>
-        <item stringID="MAP_CLKOUT3_DIVIDE" value="1"/>
-        <item stringID="MAP_CLKOUT3_DUTY_CYCLE" value="0.5"/>
-        <item stringID="MAP_CLKOUT3_PHASE" value="0.0"/>
-        <item stringID="MAP_CLKOUT4_DIVIDE" value="1"/>
-        <item stringID="MAP_CLKOUT4_DUTY_CYCLE" value="0.5"/>
-        <item stringID="MAP_CLKOUT4_PHASE" value="0.0"/>
-        <item stringID="MAP_CLKOUT5_DIVIDE" value="1"/>
-        <item stringID="MAP_CLKOUT5_DUTY_CYCLE" value="0.5"/>
-        <item stringID="MAP_CLKOUT5_PHASE" value="0.0"/>
-        <item stringID="MAP_DIVCLK_DIVIDE" value="1"/>
+        <item stringID="MAP_CLKDV_DIVIDE" value="2.0"/>
+        <item stringID="MAP_CLKIN_DIVIDE_BY_2" value="FALSE"/>
+        <item stringID="MAP_CLKOUT_PHASE_SHIFT" value="NONE"/>
+        <item stringID="MAP_CLK_FEEDBACK" value="1X"/>
+        <item stringID="MAP_DESKEW_ADJUST" value="5"/>
+        <item stringID="MAP_DFS_FREQUENCY_MODE" value="LOW"/>
+        <item stringID="MAP_DLL_FREQUENCY_MODE" value="LOW"/>
+        <item stringID="MAP_DSS_MODE" value="NONE"/>
+        <item stringID="MAP_DUTY_CYCLE_CORRECTION" value="TRUE"/>
+        <item stringID="MAP_STARTUP_WAIT" value="FALSE"/>
+        <item stringID="MAP_VERY_HIGH_FREQUENCY" value="FALSE"/>
+        <item stringID="MAP_CLKFX_DIVIDE" value="5"/>
+        <item stringID="MAP_CLKFX_MULTIPLY" value="4"/>
+        <item stringID="MAP_CLKIN_PERIOD" value="20.0"/>
+        <item stringID="MAP_PHASE_SHIFT" value="0"/>
       </section>
       <section stringID="MAP_CONTROL_SET_INFORMATION">
         <item dataType="int" label="Number of unique control sets" stringID="MAP_NUM_CONTROL_SETS" value="3"/>
@@ -1508,7 +1499,7 @@
       <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_MCB" value="0"/>
       <item AVAILABLE="0" dataType="int" stringID="MAP_NUM_PCIE_A1" value="0"/>
       <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_PCILOGICSE" value="0"/>
-      <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_PLL_ADV" value="1"/>
+      <item AVAILABLE="2" dataType="int" stringID="MAP_NUM_PLL_ADV" value="0"/>
       <item AVAILABLE="1" dataType="int" stringID="MAP_NUM_PMV" value="0"/>
       <item AVAILABLE="1" dataType="int" stringID="MAP_NUM_STARTUP" value="0"/>
       <item AVAILABLE="1" dataType="int" stringID="MAP_NUM_SUSPEND_SYNC" value="0"/>
@@ -1519,30 +1510,21 @@
       <item dataType="int" stringID="MAP_AVAILABLE" value="16"/>
       <item dataType="int" stringID="MAP_HARD_MACROS" value="0"/>
       <item dataType="int" stringID="MAP_RPMS" value="0"/>
-      <item stringID="MAP_BANDWIDTH" value="OPTIMIZED"/>
-      <item stringID="MAP_CLK_FEEDBACK" value="CLKFBOUT"/>
-      <item stringID="MAP_COMPENSATION" value="SYSTEM_SYNCHRONOUS"/>
-      <item stringID="MAP_CLKFBOUT_PHASE" value="0.0"/>
-      <item stringID="MAP_CLKIN1_PERIOD" value="20"/>
-      <item stringID="MAP_CLKIN2_PERIOD" value="20"/>
-      <item stringID="MAP_CLKOUT0_DUTY_CYCLE" value="0.5"/>
-      <item stringID="MAP_CLKOUT0_PHASE" value="0.0"/>
-      <item stringID="MAP_CLKOUT1_DIVIDE" value="1"/>
-      <item stringID="MAP_CLKOUT1_DUTY_CYCLE" value="0.5"/>
-      <item stringID="MAP_CLKOUT1_PHASE" value="0.0"/>
-      <item stringID="MAP_CLKOUT2_DIVIDE" value="1"/>
-      <item stringID="MAP_CLKOUT2_DUTY_CYCLE" value="0.5"/>
-      <item stringID="MAP_CLKOUT2_PHASE" value="0.0"/>
-      <item stringID="MAP_CLKOUT3_DIVIDE" value="1"/>
-      <item stringID="MAP_CLKOUT3_DUTY_CYCLE" value="0.5"/>
-      <item stringID="MAP_CLKOUT3_PHASE" value="0.0"/>
-      <item stringID="MAP_CLKOUT4_DIVIDE" value="1"/>
-      <item stringID="MAP_CLKOUT4_DUTY_CYCLE" value="0.5"/>
-      <item stringID="MAP_CLKOUT4_PHASE" value="0.0"/>
-      <item stringID="MAP_CLKOUT5_DIVIDE" value="1"/>
-      <item stringID="MAP_CLKOUT5_DUTY_CYCLE" value="0.5"/>
-      <item stringID="MAP_CLKOUT5_PHASE" value="0.0"/>
-      <item stringID="MAP_DIVCLK_DIVIDE" value="1"/>
+      <item stringID="MAP_CLKDV_DIVIDE" value="2.0"/>
+      <item stringID="MAP_CLKIN_DIVIDE_BY_2" value="FALSE"/>
+      <item stringID="MAP_CLKOUT_PHASE_SHIFT" value="NONE"/>
+      <item stringID="MAP_CLK_FEEDBACK" value="1X"/>
+      <item stringID="MAP_DESKEW_ADJUST" value="5"/>
+      <item stringID="MAP_DFS_FREQUENCY_MODE" value="LOW"/>
+      <item stringID="MAP_DLL_FREQUENCY_MODE" value="LOW"/>
+      <item stringID="MAP_DSS_MODE" value="NONE"/>
+      <item stringID="MAP_DUTY_CYCLE_CORRECTION" value="TRUE"/>
+      <item stringID="MAP_STARTUP_WAIT" value="FALSE"/>
+      <item stringID="MAP_VERY_HIGH_FREQUENCY" value="FALSE"/>
+      <item stringID="MAP_CLKFX_DIVIDE" value="5"/>
+      <item stringID="MAP_CLKFX_MULTIPLY" value="4"/>
+      <item stringID="MAP_CLKIN_PERIOD" value="20.0"/>
+      <item stringID="MAP_PHASE_SHIFT" value="0"/>
     </section>
   </application>
 

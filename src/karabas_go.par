@@ -1,7 +1,7 @@
 Release 14.7 par P.20131013 (lin)
 Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
 
-andy-asus::  Sun Nov 12 17:48:57 2023
+andy-asus::  Sun Nov 12 22:25:05 2023
 
 par -w -intstyle ise -ol high -mt off karabas_go_map.ncd karabas_go.ncd
 karabas_go.pcf 
@@ -29,9 +29,9 @@ Slice Logic Utilization:
     Number used as AND/OR logics:                5
   Number of Slice LUTs:                        179 out of  15,032    1%
     Number used as logic:                      175 out of  15,032    1%
-      Number using O6 output only:             114
+      Number using O6 output only:             101
       Number using O5 output only:              51
-      Number using O5 and O6:                   10
+      Number using O5 and O6:                   23
       Number used as ROM:                        0
     Number used as Memory:                       0 out of   3,664    0%
     Number used exclusively as route-thrus:      4
@@ -40,7 +40,7 @@ Slice Logic Utilization:
       Number with other load:                    0
 
 Slice Logic Distribution:
-  Number of occupied Slices:                    64 out of   3,758    1%
+  Number of occupied Slices:                    58 out of   3,758    1%
   Number of MUXCYs used:                        84 out of   7,516    1%
   Number of LUT Flip Flop pairs used:          179
     Number with an unused Flip Flop:           113 out of     179   63%
@@ -72,7 +72,9 @@ Specific Feature Utilization:
   Number of BUFG/BUFGMUXs:                       2 out of      16   12%
     Number used as BUFGs:                        2
     Number used as BUFGMUX:                      0
-  Number of DCM/DCM_CLKGENs:                     0 out of       4    0%
+  Number of DCM/DCM_CLKGENs:                     1 out of       4   25%
+    Number used as DCMs:                         1
+    Number used as DCM_CLKGENs:                  0
   Number of ILOGIC2/ISERDES2s:                   0 out of     272    0%
   Number of IODELAY2/IODRP2/IODRP2_MCBs:         0 out of     272    0%
   Number of OLOGIC2/OSERDES2s:                   1 out of     272    1%
@@ -86,7 +88,7 @@ Specific Feature Utilization:
   Number of ICAPs:                               0 out of       1    0%
   Number of MCBs:                                0 out of       2    0%
   Number of PCILOGICSEs:                         0 out of       2    0%
-  Number of PLL_ADVs:                            1 out of       2   50%
+  Number of PLL_ADVs:                            0 out of       2    0%
   Number of PMVs:                                0 out of       1    0%
   Number of STARTUPs:                            0 out of       1    0%
   Number of SUSPEND_SYNCs:                       0 out of       1    0%
@@ -172,29 +174,29 @@ WARNING:Par:288 - The signal TAPE_IN_IBUF has no load.  PAR will not attempt to 
 Starting Router
 
 
-Phase  1  : 789 unrouted;      REAL time: 5 secs 
+Phase  1  : 816 unrouted;      REAL time: 5 secs 
 
-Phase  2  : 698 unrouted;      REAL time: 6 secs 
+Phase  2  : 710 unrouted;      REAL time: 6 secs 
 
-Phase  3  : 226 unrouted;      REAL time: 6 secs 
+Phase  3  : 237 unrouted;      REAL time: 6 secs 
 
-Phase  4  : 226 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
+Phase  4  : 237 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
 
 Updating file: karabas_go.ncd with current fully routed design.
 
-Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 9 secs 
+Phase  5  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
 
-Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 9 secs 
+Phase  6  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
 
-Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 9 secs 
+Phase  7  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
 
-Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 9 secs 
+Phase  8  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
 
-Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 9 secs 
+Phase  9  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
 
-Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 10 secs 
-Total REAL time to Router completion: 10 secs 
-Total CPU time to Router completion: 9 secs 
+Phase 10  : 0 unrouted; (Setup:0, Hold:0, Component Switching Limit:0)     REAL time: 7 secs 
+Total REAL time to Router completion: 7 secs 
+Total CPU time to Router completion: 7 secs 
 
 Partition Implementation Status
 -------------------------------
@@ -212,7 +214,7 @@ Generating Clock Report
 +---------------------+--------------+------+------+------------+-------------+
 |        Clock Net    |   Resource   |Locked|Fanout|Net Skew(ns)|Max Delay(ns)|
 +---------------------+--------------+------+------+------------+-------------+
-|             clk_vga | BUFGMUX_X3Y13| No   |   23 |  0.779     |  2.306      |
+|             clk_vga | BUFGMUX_X3Y13| No   |   22 |  0.778     |  2.306      |
 +---------------------+--------------+------+------+------------+-------------+
 
 * Net Skew is the difference between the minimum and maximum routing
@@ -234,12 +236,12 @@ Asterisk (*) preceding a constraint indicates it was not met.
   Constraint                                |    Check    | Worst Case |  Best Case | Timing |   Timing   
                                             |             |    Slack   | Achievable | Errors |    Score   
 ----------------------------------------------------------------------------------------------------------
-  TS_pll0_inst_clkout0 = PERIOD TIMEGRP "pl | SETUP       |     7.470ns|     4.529ns|       0|           0
-  l0_inst_clkout0" TS_sys_clk_pin *         | HOLD        |     0.430ns|            |       0|           0
-   1.66666667 HIGH 50%                      |             |            |            |        |            
-----------------------------------------------------------------------------------------------------------
-  TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_ | MINLOWPULSE |    15.000ns|     5.000ns|       0|           0
+  TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_ | MINLOWPULSE |    12.000ns|     8.000ns|       0|           0
   pin" 50 MHz HIGH 50%                      |             |            |            |        |            
+----------------------------------------------------------------------------------------------------------
+  TS_pll0_inst_clkfx = PERIOD TIMEGRP "pll0 | SETUP       |    18.823ns|     6.177ns|       0|           0
+  _inst_clkfx" TS_sys_clk_pin * 0.8         | HOLD        |     0.437ns|            |       0|           0
+   HIGH 50%                                 |             |            |            |        |            
 ----------------------------------------------------------------------------------------------------------
 
 
@@ -253,8 +255,8 @@ Derived Constraints for TS_sys_clk_pin
 |           Constraint          | Requirement |-------------+-------------|-------------+-------------|-------------+-------------|
 |                               |             |   Direct    | Derivative  |   Direct    | Derivative  |   Direct    | Derivative  |
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
-|TS_sys_clk_pin                 |     20.000ns|      5.000ns|      7.548ns|            0|            0|            0|         1437|
-| TS_pll0_inst_clkout0          |     12.000ns|      4.529ns|          N/A|            0|            0|         1437|            0|
+|TS_sys_clk_pin                 |     20.000ns|      8.000ns|      4.942ns|            0|            0|            0|         1425|
+| TS_pll0_inst_clkfx            |     25.000ns|      6.177ns|          N/A|            0|            0|         1425|            0|
 +-------------------------------+-------------+-------------+-------------+-------------+-------------+-------------+-------------+
 
 All constraints were met.
@@ -266,10 +268,10 @@ All signals are completely routed.
 
 WARNING:Par:283 - There are 71 loadless signals in this design. This design will cause Bitgen to issue DRC warnings.
 
-Total REAL time to PAR completion: 10 secs 
-Total CPU time to PAR completion: 10 secs 
+Total REAL time to PAR completion: 8 secs 
+Total CPU time to PAR completion: 7 secs 
 
-Peak Memory Usage:  222 MB
+Peak Memory Usage:  219 MB
 
 Placer: Placement generated during map.
 Routing: Completed - No errors found.

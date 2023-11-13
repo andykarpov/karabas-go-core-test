@@ -11,9 +11,6 @@
 <msg type="warning" file="HDLCompiler" num="92" delta="old" >"/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 188: <arg fmt="%s" index="1">led</arg> should be on the sensitivity list of the process
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="1127" delta="old" >"/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 193: Assignment to <arg fmt="%s" index="1">blank</arg> ignored, since the identifier is never used
-</msg>
-
 <msg type="warning" file="HDLCompiler" num="89" delta="old" >"/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 128: &lt;<arg fmt="%s" index="1">oddr2</arg>&gt; remains a black-box since it has no binding entity.
 </msg>
 
@@ -27,9 +24,6 @@
 </msg>
 
 <msg type="warning" file="Xst" num="647" delta="old" >Input &lt;<arg fmt="%s" index="1">MCU_SCK</arg>&gt; is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-</msg>
-
-<msg type="info" file="Xst" num="1901" delta="old" >Instance <arg fmt="%s" index="1">pll0_inst/pll_base_inst</arg> in unit <arg fmt="%s" index="2">pll0_inst/pll_base_inst</arg> of type <arg fmt="%s" index="3">PLL_BASE</arg> has been replaced by <arg fmt="%s" index="4">PLL_ADV</arg>
 </msg>
 
 </messages>

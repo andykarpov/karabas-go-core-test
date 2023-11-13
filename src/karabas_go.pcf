@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Sun Nov 12 17:48:53 2023
+// Written by: Map P.20131013 on Sun Nov 12 22:25:01 2023
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -175,29 +175,28 @@ COMP "TAPE_IN" LOCATE = SITE "N14" LEVEL 1;
 COMP "TAPE_OUT" LOCATE = SITE "M13" LEVEL 1;
 PIN ODDR2_inst_pins<1> = BEL "ODDR2_inst" PINNAME CK0;
 PIN ODDR2_inst_pins<2> = BEL "ODDR2_inst" PINNAME CK1;
-TIMEGRP pll0_inst_clkout0 = BEL "led" BEL "cnt_0" BEL "cnt_1" BEL "cnt_2" BEL
-        "cnt_3" BEL "cnt_4" BEL "cnt_5" BEL "cnt_6" BEL "cnt_7" BEL "cnt_8"
-        BEL "cnt_9" BEL "cnt_10" BEL "cnt_11" BEL "cnt_12" BEL "cnt_13" BEL
-        "cnt_14" BEL "cnt_15" BEL "cnt_16" BEL "cnt_17" BEL "cnt_18" BEL
-        "cnt_19" BEL "cnt_20" BEL "cnt_21" BEL "cnt_22" BEL "cnt_23" BEL
-        "cnt_24" BEL "cnt_25" BEL "cnt_26" BEL "shift_0" BEL "shift_1" BEL
-        "shift_2" BEL "shift_3" BEL "shift_4" BEL "shift_5" BEL "shift_6" BEL
-        "shift_7" BEL "pll0_inst/clkout1_buf" BEL "vcnt_0" BEL "vcnt_1" BEL
-        "vcnt_2" BEL "vcnt_3" BEL "vcnt_4" BEL "vcnt_5" BEL "vcnt_6" BEL
-        "vcnt_7" BEL "vcnt_8" BEL "vcnt_9" BEL "vcnt_10" BEL "vcnt_11" BEL
-        "vcnt_5_1" BEL "hcnt_0" BEL "hcnt_1" BEL "hcnt_2" BEL "hcnt_3" BEL
-        "hcnt_4" BEL "hcnt_5" BEL "hcnt_6" BEL "hcnt_7" BEL "hcnt_8" BEL
-        "hcnt_9" BEL "hcnt_10" BEL "hcnt_11" PIN "ODDR2_inst_pins<1>" PIN
+TIMEGRP pll0_inst_clkfx = BEL "led" BEL "shift_0" BEL "shift_1" BEL "shift_2"
+        BEL "shift_3" BEL "shift_4" BEL "shift_5" BEL "shift_6" BEL "shift_7"
+        BEL "cnt_0" BEL "cnt_1" BEL "cnt_2" BEL "cnt_3" BEL "cnt_4" BEL
+        "cnt_5" BEL "cnt_6" BEL "cnt_7" BEL "cnt_8" BEL "cnt_9" BEL "cnt_10"
+        BEL "cnt_11" BEL "cnt_12" BEL "cnt_13" BEL "cnt_14" BEL "cnt_15" BEL
+        "cnt_16" BEL "cnt_17" BEL "cnt_18" BEL "cnt_19" BEL "cnt_20" BEL
+        "cnt_21" BEL "cnt_22" BEL "cnt_23" BEL "cnt_24" BEL "cnt_25" BEL
+        "cnt_26" BEL "pll0_inst/clkout1_buf" BEL "vcnt_0" BEL "hcnt_0" BEL
+        "hcnt_1" BEL "hcnt_2" BEL "hcnt_3" BEL "hcnt_4" BEL "hcnt_5" BEL
+        "hcnt_6" BEL "hcnt_7" BEL "hcnt_8" BEL "hcnt_9" BEL "hcnt_10" BEL
+        "hcnt_11" BEL "vcnt_1" BEL "vcnt_2" BEL "vcnt_3" BEL "vcnt_4" BEL
+        "vcnt_5" BEL "vcnt_6" BEL "vcnt_7" BEL "vcnt_8" BEL "vcnt_9" BEL
+        "vcnt_10" BEL "vcnt_11" BEL "hcnt_7_1" PIN "ODDR2_inst_pins<1>" PIN
         "ODDR2_inst_pins<2>" PIN "ODDR2_inst_pins<1>" PIN
         "ODDR2_inst_pins<2>";
-PIN SP6_BUFIO2_INSERT_PLL1_ML_BUFIO2_0_pins<0> = BEL
-        "SP6_BUFIO2_INSERT_PLL1_ML_BUFIO2_0" PINNAME DIVCLK;
-PIN pll0_inst/pll_base_inst/PLL_ADV_pins<2> = BEL
-        "pll0_inst/pll_base_inst/PLL_ADV" PINNAME CLKIN1;
-TIMEGRP sys_clk_pin = PIN "SP6_BUFIO2_INSERT_PLL1_ML_BUFIO2_0_pins<0>" PIN
-        "pll0_inst/pll_base_inst/PLL_ADV_pins<2>";
+PIN SP6_BUFIO_INSERT_ML_BUFIO2_0_pins<0> = BEL "SP6_BUFIO_INSERT_ML_BUFIO2_0"
+        PINNAME DIVCLK;
+PIN pll0_inst/dcm_sp_inst_pins<3> = BEL "pll0_inst/dcm_sp_inst" PINNAME CLKIN;
+TIMEGRP sys_clk_pin = PIN "SP6_BUFIO_INSERT_ML_BUFIO2_0_pins<0>" PIN
+        "pll0_inst/dcm_sp_inst_pins<3>";
 TS_sys_clk_pin = PERIOD TIMEGRP "sys_clk_pin" 50 MHz HIGH 50%;
-TS_pll0_inst_clkout0 = PERIOD TIMEGRP "pll0_inst_clkout0" TS_sys_clk_pin *
-        1.66666667 HIGH 50%;
+TS_pll0_inst_clkfx = PERIOD TIMEGRP "pll0_inst_clkfx" TS_sys_clk_pin * 0.8
+        HIGH 50%;
 SCHEMATIC END;
 

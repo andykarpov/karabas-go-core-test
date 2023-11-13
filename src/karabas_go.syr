@@ -122,7 +122,6 @@ WARNING:HDLCompiler:946 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/k
 
 Elaborating entity <karabas_go> (architecture <Behavioral>) from library <work>.
 WARNING:HDLCompiler:92 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 188: led should be on the sensitivity list of the process
-WARNING:HDLCompiler:1127 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 193: Assignment to blank ignored, since the identifier is never used
 
 Elaborating entity <pll> (architecture <xilinx>) from library <work>.
 WARNING:HDLCompiler:89 - "/home/andy/Documents/Projects/Retrocomp/ZX-Spectrum/karabas-go/karabas-go-core-test/src/karabas-go.vhd" Line 128: <oddr2> remains a black-box since it has no binding entity.
@@ -154,11 +153,13 @@ WARNING:Xst:647 - Input <MCU_SCK> is never used. This port will be preserved and
     Found 12-bit comparator greater for signal <GND_6_o_hcnt[11]_LessThan_14_o> created at line 191
     Found 12-bit comparator lessequal for signal <n0019> created at line 192
     Found 12-bit comparator greater for signal <GND_6_o_vcnt[11]_LessThan_16_o> created at line 192
+    Found 12-bit comparator greater for signal <GND_6_o_hcnt[11]_LessThan_17_o> created at line 193
+    Found 12-bit comparator greater for signal <GND_6_o_vcnt[11]_LessThan_18_o> created at line 193
     Summary:
 	inferred   8 Adder/Subtractor(s).
 	inferred  60 D-type flip-flop(s).
-	inferred   4 Comparator(s).
-	inferred   3 Multiplexer(s).
+	inferred   6 Comparator(s).
+	inferred   6 Multiplexer(s).
 Unit <karabas_go> synthesized.
 
 Synthesizing Unit <pll>.
@@ -181,11 +182,11 @@ Macro Statistics
  12-bit register                                       : 2
  27-bit register                                       : 1
  8-bit register                                        : 1
-# Comparators                                          : 4
- 12-bit comparator greater                             : 2
+# Comparators                                          : 6
+ 12-bit comparator greater                             : 4
  12-bit comparator lessequal                           : 2
-# Multiplexers                                         : 3
- 8-bit 2-to-1 multiplexer                              : 3
+# Multiplexers                                         : 6
+ 8-bit 2-to-1 multiplexer                              : 6
 
 =========================================================================
 
@@ -214,25 +215,24 @@ Macro Statistics
  8-bit up counter                                      : 1
 # Registers                                            : 1
  Flip-Flops                                            : 1
-# Comparators                                          : 4
- 12-bit comparator greater                             : 2
+# Comparators                                          : 6
+ 12-bit comparator greater                             : 4
  12-bit comparator lessequal                           : 2
-# Multiplexers                                         : 3
- 8-bit 2-to-1 multiplexer                              : 3
+# Multiplexers                                         : 6
+ 8-bit 2-to-1 multiplexer                              : 6
 
 =========================================================================
 
 =========================================================================
 *                         Low Level Synthesis                           *
 =========================================================================
-INFO:Xst:1901 - Instance pll0_inst/pll_base_inst in unit pll0_inst/pll_base_inst of type PLL_BASE has been replaced by PLL_ADV
 
 Optimizing unit <karabas_go> ...
 
 Mapping all equations...
 Building and optimizing final netlist ...
 Found area constraint ratio of 100 (+ 5) on block karabas_go, actual ratio is 1.
-FlipFlop vcnt_5 has been replicated 1 time(s)
+FlipFlop hcnt_7 has been replicated 1 time(s)
 
 Final Macro Processing ...
 
@@ -264,15 +264,15 @@ Top Level Output File Name         : karabas_go.ngc
 
 Primitive and Black Box Usage:
 ------------------------------
-# BELS                             : 348
+# BELS                             : 361
 #      GND                         : 1
 #      INV                         : 6
 #      LUT1                        : 55
-#      LUT2                        : 30
-#      LUT3                        : 17
-#      LUT4                        : 17
-#      LUT5                        : 38
-#      LUT6                        : 24
+#      LUT2                        : 31
+#      LUT3                        : 44
+#      LUT4                        : 11
+#      LUT5                        : 6
+#      LUT6                        : 47
 #      MUXCY                       : 76
 #      VCC                         : 1
 #      XORCY                       : 83
@@ -285,8 +285,8 @@ Primitive and Black Box Usage:
 # IO Buffers                       : 99
 #      IBUFG                       : 1
 #      OBUF                        : 98
-# Others                           : 1
-#      PLL_ADV                     : 1
+# DCMs                             : 1
+#      DCM_SP                      : 1
 
 Device utilization summary:
 ---------------------------
@@ -296,14 +296,14 @@ Selected Device : 6slx25ftg256-2
 
 Slice Logic Utilization: 
  Number of Slice Registers:              62  out of  30064     0%  
- Number of Slice LUTs:                  187  out of  15032     1%  
-    Number used as Logic:               187  out of  15032     1%  
+ Number of Slice LUTs:                  200  out of  15032     1%  
+    Number used as Logic:               200  out of  15032     1%  
 
 Slice Logic Distribution: 
- Number of LUT Flip Flop pairs used:    189
-   Number with an unused Flip Flop:     127  out of    189    67%  
-   Number with an unused LUT:             2  out of    189     1%  
-   Number of fully used LUT-FF pairs:    60  out of    189    31%  
+ Number of LUT Flip Flop pairs used:    202
+   Number with an unused Flip Flop:     140  out of    202    69%  
+   Number with an unused LUT:             2  out of    202     0%  
+   Number of fully used LUT-FF pairs:    60  out of    202    29%  
    Number of unique control sets:         3
 
 IO Utilization: 
@@ -312,7 +312,6 @@ IO Utilization:
 
 Specific Feature Utilization:
  Number of BUFG/BUFGCTRLs:                2  out of     16    12%  
- Number of PLL_ADVs:                      1  out of      2    50%  
 
 ---------------------------
 Partition Resource Summary:
@@ -335,7 +334,7 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-pll0_inst/pll_base_inst/CLKOUT0    | BUFG                   | 63    |
+CLK_50MHZ                          | DCM_SP:CLKFX           | 63    |
 -----------------------------------+------------------------+-------+
 
 Asynchronous Control Signals Information:
@@ -346,9 +345,9 @@ Timing Summary:
 ---------------
 Speed Grade: -2
 
-   Minimum period: 4.753ns (Maximum Frequency: 210.393MHz)
+   Minimum period: 4.036ns (Maximum Frequency: 247.770MHz)
    Minimum input arrival time before clock: No path found
-   Maximum output required time after clock: 9.400ns
+   Maximum output required time after clock: 10.205ns
    Maximum combinational path delay: No path found
 
 Timing Details:
@@ -356,76 +355,77 @@ Timing Details:
 All values displayed in nanoseconds (ns)
 
 =========================================================================
-Timing constraint: Default period analysis for Clock 'pll0_inst/pll_base_inst/CLKOUT0'
-  Clock period: 4.753ns (frequency: 210.393MHz)
-  Total number of paths / destination ports: 1437 / 70
+Timing constraint: Default period analysis for Clock 'CLK_50MHZ'
+  Clock period: 4.036ns (frequency: 247.770MHz)
+  Total number of paths / destination ports: 1425 / 70
 -------------------------------------------------------------------------
-Delay:               4.753ns (Levels of Logic = 3)
-  Source:            hcnt_11 (FF)
+Delay:               5.045ns (Levels of Logic = 3)
+  Source:            vcnt_11 (FF)
   Destination:       vcnt_0 (FF)
-  Source Clock:      pll0_inst/pll_base_inst/CLKOUT0 rising
-  Destination Clock: pll0_inst/pll_base_inst/CLKOUT0 rising
+  Source Clock:      CLK_50MHZ rising 0.8X
+  Destination Clock: CLK_50MHZ rising 0.8X
 
-  Data Path: hcnt_11 to vcnt_0
+  Data Path: vcnt_11 to vcnt_0
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q               5   0.525   1.296  hcnt_11 (hcnt_11)
-     LUT6:I0->O           21   0.254   1.310  GND_6_o_GND_6_o_OR_45_o21 (GND_6_o_GND_6_o_OR_45_o2)
-     LUT6:I5->O            1   0.254   0.790  GND_6_o_GND_6_o_equal_44_o<11> (GND_6_o_GND_6_o_equal_44_o)
-     LUT4:I2->O            1   0.250   0.000  vcnt_0_rstpot1 (vcnt_0_rstpot1)
+     FD:C->Q               6   0.525   1.152  vcnt_11 (vcnt_11)
+     LUT4:I0->O           10   0.254   1.463  VGA_VS21 (GND_6_o_GND_6_o_OR_45_o3)
+     LUT6:I0->O           12   0.254   1.069  _n0149 (_n0149)
+     LUT4:I3->O            1   0.254   0.000  vcnt_0_rstpot1 (vcnt_0_rstpot1)
      FD:D                      0.074          vcnt_0
     ----------------------------------------
-    Total                      4.753ns (1.357ns logic, 3.396ns route)
-                                       (28.6% logic, 71.4% route)
+    Total                      5.045ns (1.361ns logic, 3.684ns route)
+                                       (27.0% logic, 73.0% route)
 
 =========================================================================
-Timing constraint: Default OFFSET OUT AFTER for Clock 'pll0_inst/pll_base_inst/CLKOUT0'
-  Total number of paths / destination ports: 1437 / 27
+Timing constraint: Default OFFSET OUT AFTER for Clock 'CLK_50MHZ'
+  Total number of paths / destination ports: 1605 / 27
 -------------------------------------------------------------------------
-Offset:              9.400ns (Levels of Logic = 4)
-  Source:            hcnt_11 (FF)
+Offset:              10.205ns (Levels of Logic = 5)
+  Source:            hcnt_2 (FF)
   Destination:       VGA_R<7> (PAD)
-  Source Clock:      pll0_inst/pll_base_inst/CLKOUT0 rising
+  Source Clock:      CLK_50MHZ rising 0.8X
 
-  Data Path: hcnt_11 to VGA_R<7>
+  Data Path: hcnt_2 to VGA_R<7>
                                 Gate     Net
     Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
     ----------------------------------------  ------------
-     FD:C->Q               5   0.525   1.296  hcnt_11 (hcnt_11)
-     LUT6:I0->O           21   0.254   1.418  GND_6_o_GND_6_o_OR_45_o21 (GND_6_o_GND_6_o_OR_45_o2)
-     LUT6:I4->O           24   0.250   1.810  GND_6_o_GND_6_o_OR_45_o4 (GND_6_o_GND_6_o_OR_45_o5)
-     LUT5:I0->O            1   0.254   0.681  Mmux_VGA_B81 (VGA_B_7_OBUF)
+     FD:C->Q              17   0.525   1.437  hcnt_2 (hcnt_2)
+     LUT3:I0->O           12   0.235   1.297  GND_6_o_GND_6_o_OR_45_o111 (GND_6_o_GND_6_o_OR_45_o11)
+     LUT5:I2->O            1   0.235   0.910  GND_6_o_GND_6_o_OR_45_o4 (GND_6_o_GND_6_o_OR_45_o5)
+     LUT6:I3->O           24   0.235   1.488  GND_6_o_GND_6_o_OR_45_o6 (GND_6_o_GND_6_o_OR_45_o)
+     LUT3:I1->O            1   0.250   0.681  Mmux_VGA_B81 (VGA_B_7_OBUF)
      OBUF:I->O                 2.912          VGA_B_7_OBUF (VGA_B<7>)
     ----------------------------------------
-    Total                      9.400ns (4.195ns logic, 5.205ns route)
-                                       (44.6% logic, 55.4% route)
+    Total                     10.205ns (4.392ns logic, 5.813ns route)
+                                       (43.0% logic, 57.0% route)
 
 =========================================================================
 
 Cross Clock Domains Report:
 --------------------------
 
-Clock to Setup on destination clock pll0_inst/pll_base_inst/CLKOUT0
--------------------------------+---------+---------+---------+---------+
-                               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
-Source Clock                   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
--------------------------------+---------+---------+---------+---------+
-pll0_inst/pll_base_inst/CLKOUT0|    4.753|         |         |         |
--------------------------------+---------+---------+---------+---------+
+Clock to Setup on destination clock CLK_50MHZ
+---------------+---------+---------+---------+---------+
+               | Src:Rise| Src:Fall| Src:Rise| Src:Fall|
+Source Clock   |Dest:Rise|Dest:Rise|Dest:Fall|Dest:Fall|
+---------------+---------+---------+---------+---------+
+CLK_50MHZ      |    5.045|         |         |         |
+---------------+---------+---------+---------+---------+
 
 =========================================================================
 
 
-Total REAL time to Xst completion: 6.00 secs
-Total CPU time to Xst completion: 5.98 secs
+Total REAL time to Xst completion: 5.00 secs
+Total CPU time to Xst completion: 5.64 secs
  
 --> 
 
 
-Total memory usage is 141860 kilobytes
+Total memory usage is 142020 kilobytes
 
 Number of errors   :    0 (   0 filtered)
-Number of warnings :    8 (   0 filtered)
-Number of infos    :    1 (   0 filtered)
+Number of warnings :    7 (   0 filtered)
+Number of infos    :    0 (   0 filtered)
 
