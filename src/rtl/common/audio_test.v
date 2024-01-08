@@ -22,8 +22,8 @@
 //////////////////////////////////////////////////////////////////////////////////
 module audio_test (
    input wire clk,  // 14MHz
-   output wire [7:0] left,
-   output wire [7:0] right,
+   output wire [15:0] left,
+   output wire [15:0] right,
    output wire led
    );
    
@@ -55,8 +55,8 @@ module audio_test (
          cnt_2000 <= cnt_2000 + 13'd1;
    end
    
-   assign left = (leftright == 1'b0)? sample : 8'b00000000;
-   assign right = (leftright == 1'b1)? sample : 8'b00000000;
+   assign left = (leftright == 1'b0)? {4'b0000, sample, 4'b0000} : 16'b0000000000000000;
+   assign right = (leftright == 1'b1)? {4'b0000, sample, 4'b0000} : 16'b0000000000000000;
    assign led = ~leftright;
 endmodule
 

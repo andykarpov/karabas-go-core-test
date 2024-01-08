@@ -284,7 +284,7 @@ ramtest16b test_de_ram (
       .clkvideo(clk7),
       .clkvga(clk14),
       .enable_scandoubling(vga),
-      .disable_scaneffect(1'b0),
+      .disable_scaneffect(1'b1),
       .ri(r_to_vga),
       .gi(g_to_vga),
       .bi(b_to_vga),
