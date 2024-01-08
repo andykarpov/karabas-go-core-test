@@ -53,8 +53,9 @@ set work work
 vlib work
 
 # compile all of the files
-vcom -work work ../../implement/results/routed.vhd
-vcom -work work pll_tb.vhd
+vlog -work work $XILINX/verilog/src/glbl.v
+vlog -work work ../../implement/results/routed.v
+vlog -work work pll_tb.v
 
 # run the simulation
-vsim -c -t ps +transport_int_delays -voptargs="+acc" -L secureip -L simprim -sdfmax pll_tb/dut=../../implement/results/routed.sdf +no_notifier work.pll_tb 
+vsim -c -t ps +transport_int_delays -voptargs="+acc" -L secureip -L simprims_ver -sdfmax pll_tb/dut=../../implement/results/routed.sdf +no_notifier work.pll_tb work.glbl

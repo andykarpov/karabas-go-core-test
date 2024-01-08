@@ -47,14 +47,15 @@
 # PART OF THIS FILE AT ALL TIMES.
 # 
 
-# lin
+# nt
 # create the project
-vhpcomp -work work ../../../pll.vhd
-vhpcomp -work work ../../example_design/pll_exdes.vhd
-vhpcomp -work work ../pll_tb.vhd
+vlogcomp -work work ${XILINX}/verilog/src/glbl.v
+vlogcomp -work work ../../../pll.v
+vlogcomp -work work ../../example_design/pll_exdes.v
+vlogcomp -work work ../pll_tb.v
 
 # compile the project
-fuse work.pll_tb  -L unisim -o pll_isim.exe
+fuse work.pll_tb work.glbl -L unisims_ver -o pll_isim.exe
 
 # run the simulation script
 ./pll_isim.exe -gui -tclbatch simcmds.tcl

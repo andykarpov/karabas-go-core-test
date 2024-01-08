@@ -1,2 +1,2 @@
-vhdl work ../../pll.vhd
-vhdl work ../example_design/pll_exdes.vhd
+verilog work ../../pll.v
+verilog work ../example_design/pll_exdes.v

@@ -1,2 +1,2 @@
 COMPILED_SDF_FILE = "../../implement/results/routed.sdf.X",
-SCOPE = :dut;
+SCOPE = pll_tb.dut;

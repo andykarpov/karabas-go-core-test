@@ -50,7 +50,7 @@
 set projDir [file dirname [info script]]
 set projName pll
 set topName pll_exdes
-set device xc6slx25ftg256-3
+set device xc6slx25ftg256-2
 
 create_project $projName $projDir/results/$projName -part $device
 
@@ -58,8 +58,8 @@ set_property design_mode RTL [get_filesets sources_1]
 
 ## Source files
 #set verilogSources [glob $srcDir/*.v]
-import_files -fileset [get_filesets sources_1] -force -norecurse ../../example_design/pll_exdes.vhd
-import_files -fileset [get_filesets sources_1] -force -norecurse ../../../pll.vhd
+import_files -fileset [get_filesets sources_1] -force -norecurse ../../example_design/pll_exdes.v
+import_files -fileset [get_filesets sources_1] -force -norecurse ../../../pll.v
 
 
 #UCF file
