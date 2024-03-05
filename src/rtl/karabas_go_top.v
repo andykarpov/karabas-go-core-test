@@ -136,8 +136,10 @@ module karabas_go_top (
    
    wire master_reset;
 
-	wire [11:0] joy_l; // -- MXYZ SACB RLDU
-	wire [11:0] joy_r;  // -- MXYZ SACB RLDU
+	wire [12:0] joy_l; // -- MXYZ SACB RLDU
+	wire [12:0] joy_r;  // -- MXYZ SACB RLDU
+	
+	wire [11:0] joy_l_md, joy_r_md;
    
    wire clk100, clk14, clk7;
    wire clocks_ready;
@@ -259,8 +261,8 @@ ramtest16b test_de_ram (
      .memtest_result(memtest_result),
      .joystick1(8'b00000000),
      .joystick2(8'b00000000),
-	  .joy1md(joy_l), // -- MXYZ SACB RLDU  Negative Logic
-	  .joy2md(joy_r), // -- MXYZ SACB RLDU  Negative Logic
+	  .joy1md(joy_l_md), // -- MXYZ SACB RLDU  Negative Logic
+	  .joy2md(joy_r_md), // -- MXYZ SACB RLDU  Negative Logic
      .earcode(earcode),
      .sdtest_progress(sdtest_progress),
      .sdtest_result(sdtest_result),
@@ -337,7 +339,6 @@ mcu mcu(
 	
 	.JOY_L(joy_l),
 	.JOY_R(joy_r),
-	.JOY_USB(),
 	
 	.RTC_A(),
 	.RTC_DI(8'b00000000),
@@ -355,6 +356,11 @@ mcu mcu(
 	
 	.BUSY(mcu_busy)
 );
+
+// -- MZYX CBAS RLDU O Positive Logic
+// -- MXYZ SACB RLDU   Negative Logic
+assign joy_l_md = {joy_l[12], joy_l[9], joy_l[10], joy_l[11], joy_l[5], joy_l[6], joy_l[8], joy_l[7], joy_l[4:1]}; 
+assign joy_r_md = {joy_r[12], joy_r[9], joy_r[10], joy_r[11], joy_r[5], joy_r[6], joy_r[8], joy_r[7], joy_r[4:1]};
 
 //---------- Soft switches ------------
 
