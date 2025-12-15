@@ -31,6 +31,9 @@ module vga_scandoubler (
     input wire hsync_ext_n,
     input wire vsync_ext_n,
     input wire csync_ext_n,
+	 input wire blank_ext_n,
+	 input wire [9:0] hcnt_ext,
+	 input wire [9:0] vcnt_ext,
     output reg [7:0] ro,
     output reg [7:0] go,
     output reg [7:0] bo,
@@ -117,7 +120,20 @@ module vga_scandoubler (
     // El HSYNC de la VGA est bajo slo durante HSYNC_COUNT ciclos a partir del comienzo
     // del barrido de un scanline
     reg hsync_vga, vsync_vga;
-	 wire blank_vga = (~hsync_vga || ~vsync_vga) ? 1'b1 : 1'b0;
+	 wire blank_vga = (vga_hcnt >= 800 || vga_vcnt >= 600) ? 1'b1 : 1'b0;
+	 
+	 reg [9:0] vga_hcnt, vga_vcnt;
+	 always @(posedge clkvga) begin
+	     if (hcnt_ext == 0 && vga_hcnt != 0) begin
+		      vga_hcnt <= 0;
+				if (vcnt_ext == 0 && vga_vcnt != 0) 
+				    vga_vcnt <= 0;
+				else
+				    vga_vcnt <= vga_vcnt + 1;
+		  end
+		  else
+		      vga_hcnt <= vga_hcnt + 1;
+	 end
     
     always @* begin
         if (addrvga[9:0] < HSYNC_COUNT[9:0]) begin
@@ -129,8 +145,9 @@ module vga_scandoubler (
 				end
     end
     
-    // El VSYNC de la VGA est bajo slo durante VSYNC_COUNT ciclos a partir del flanco de
-    // bajada de la seal de sincronismo vertical original
+	 // The VSYNC of the VGA is low only during VSYNC_COUNT cycles 
+	 // starting from the falling edge of the original vertical sync signal
+	 
     reg [15:0] cntvsync = 16'hFFFF;
     initial vsync_vga = 1'b1;
     always @(posedge clkvga) begin

@@ -22,78 +22,72 @@
 
 module background (
     input wire clk,
-    input wire mode,
     output reg [5:0] r,
     output reg [5:0] g,
     output reg [5:0] b,
-    output wire [8:0] hc,
-    output wire [8:0] vc,
+    output wire [11:0] hc,
+    output wire [11:0] vc,
     output wire hsync,
     output wire vsync,
-    output wire csync,
     output wire blank    
     );
 
-    wire blank1;
-	 
-	 assign blank = blank1;
-
-	 // 448x312 total, 352x304 visible (PAL), 
-	 // 445x262 total, 352x254 visible (NTSC)
-    sync_generator_pal_ntsc sincronismos (
-    .clk(clk),   // 7 MHz
-    .in_mode(mode),  // 0: PAL, 1: NTSC
-    .csync_n(csync),
-    .hsync_n(hsync),
-    .vsync_n(vsync),
+	 // 800x600
+    sync_generator_vga sincronismos (
+    .clk(clk),   // 40 MHz
+    .hsync(hsync),
+    .vsync(vsync),
+    .blank(blank),
     .hc(hc),
-    .vc(vc),
-    .blank(blank1)
+    .vc(vc)
     );
     
+	 wire [10:0] dhc = hc[11:1];
+	 wire [10:0] dvc = vc[11:1];
+	 
     always @* begin
-      if (blank1 == 1'b1) begin
+      if (blank == 1'b1) begin
         {r,g,b} = 18'b000000_000000_000000;
       end
       else begin
-        if (vc >= 9'd90*0 && vc < 9'd90*1) begin
-          if (hc >= 9'd57*0 && hc < 9'd57*1)
+        if (dvc >= 9'd90*0 && dvc < 9'd90*1) begin
+          if (dhc >= 9'd57*0 && dhc < 9'd57*1)
             {r,g,b} = 18'b100000_000000_000000;
-          else if (hc >= 9'd57*1 && hc < 9'd57*2)
+          else if (dhc >= 9'd57*1 && dhc < 9'd57*2)
             {r,g,b} = 18'b010000_000000_000000;
-          else if (hc >= 9'd57*2 && hc < 9'd57*3)
+          else if (dhc >= 9'd57*2 && dhc < 9'd57*3)
             {r,g,b} = 18'b001000_000000_000000;
-          else if (hc >= 9'd57*3 && hc < 9'd57*4)
+          else if (dhc >= 9'd57*3 && dhc < 9'd57*4)
             {r,g,b} = 18'b000100_000000_000000;
-          else if (hc >= 9'd57*4 && hc < 9'd57*5)
+          else if (dhc >= 9'd57*4 && dhc < 9'd57*5)
             {r,g,b} = 18'b000010_000000_000000;
           else
             {r,g,b} = 18'b000001_000000_000000;
         end
-        else if (vc >= 9'd90*1 && vc < 9'd90*2) begin
-          if (hc >= 9'd57*0 && hc < 9'd57*1)
+        else if (dvc >= 9'd90*1 && dvc < 9'd90*2) begin
+          if (dhc >= 9'd57*0 && dhc < 9'd57*1)
             {r,g,b} = 18'b000000_100000_000000;
-          else if (hc >= 9'd57*1 && hc < 9'd57*2)
+          else if (dhc >= 9'd57*1 && dhc < 9'd57*2)
             {r,g,b} = 18'b000000_010000_000000;
-          else if (hc >= 9'd57*2 && hc < 9'd57*3)
+          else if (dhc >= 9'd57*2 && dhc < 9'd57*3)
             {r,g,b} = 18'b000000_001000_000000;
-          else if (hc >= 9'd57*3 && hc < 9'd57*4)
+          else if (dhc >= 9'd57*3 && dhc < 9'd57*4)
             {r,g,b} = 18'b000000_000100_000000;
-          else if (hc >= 9'd57*4 && hc < 9'd57*5)
+          else if (dhc >= 9'd57*4 && dhc < 9'd57*5)
             {r,g,b} = 18'b000000_000010_000000;
           else
             {r,g,b} = 18'b000000_000001_000000;
         end
         else begin
-          if (hc >= 9'd57*0 && hc < 9'd57*1)
+          if (dhc >= 9'd57*0 && dhc < 9'd57*1)
             {r,g,b} = 18'b000000_000000_100000;
-          else if (hc >= 9'd57*1 && hc < 9'd57*2)
+          else if (dhc >= 9'd57*1 && dhc < 9'd57*2)
             {r,g,b} = 18'b000000_000000_010000;
-          else if (hc >= 9'd57*2 && hc < 9'd57*3)
+          else if (dhc >= 9'd57*2 && dhc < 9'd57*3)
             {r,g,b} = 18'b000000_000000_001000;
-          else if (hc >= 9'd57*3 && hc < 9'd57*4)
+          else if (dhc >= 9'd57*3 && dhc < 9'd57*4)
             {r,g,b} = 18'b000000_000000_000100;
-          else if (hc >= 9'd57*4 && hc < 9'd57*5)
+          else if (dhc >= 9'd57*4 && dhc < 9'd57*5)
             {r,g,b} = 18'b000000_000000_000010;
           else
             {r,g,b} = 18'b000000_000000_000001;
@@ -104,7 +98,6 @@ endmodule
 
 module window_on_background (
     input wire clk,
-    input wire mode,
     input wire [9:0] addr,
     input wire [7:0] data,
     input wire we,
@@ -114,10 +107,9 @@ module window_on_background (
     output reg [5:0] b,
     output wire hsync,
     output wire vsync,
-    output wire csync,
 	 output wire blank,
-	 output wire [9:0] hcnt,
-	 output wire [9:0] vcnt
+	 output wire [11:0] hcnt,
+	 output wire [11:0] vcnt
     );
    
     parameter
@@ -127,14 +119,13 @@ module window_on_background (
       ENDY = BEGINY + 8 * 19;  // 19 lineas de texto
 
     wire [5:0] rb,gb,bb;
-    wire [8:0] hc,vc;
+    wire [11:0] hc,vc;
 	 
 	 assign hcnt = hc;
 	 assign vcnt = vc;
    
     background bg (
     .clk(clk),
-    .mode(mode),
     .r(rb),
     .g(gb),
     .b(bb),
@@ -142,7 +133,6 @@ module window_on_background (
     .vc(vc),
     .hsync(hsync),
     .vsync(vsync),
-    .csync(csync),
 	 .blank(blank)
     );
     
@@ -151,8 +141,10 @@ module window_on_background (
       $readmemh ("CP437.hex", charrom);
     end
     
-    wire in_text_window = (hc >= BEGINX && hc < ENDX && vc >= BEGINY && vc < ENDY);
-    wire showing_text_window = (~hidetextwindow && hc >= (BEGINX+9'd8) && hc < (ENDX+9'd8) && vc >= BEGINY && vc < ENDY);
+	 wire [10:0] dhc = hc[11:1];
+	 wire [10:0] dvc = vc[11:1];	 
+    wire in_text_window = (dhc >= BEGINX && dhc < ENDX && dvc >= BEGINY && dvc < ENDY);
+    wire showing_text_window = (~hidetextwindow && dhc >= (BEGINX+9'd8) && dhc < (ENDX+9'd8) && dvc >= BEGINY && dvc < ENDY);
     
     reg [7:0] chc = 8'h00;
     reg [7:0] cvc = 8'h00;
@@ -170,34 +162,42 @@ module window_on_background (
       .dout(dout)
    );
 
+	reg div = 0;
+	
    always @(posedge clk) begin
-      // H and C counters for text window
-      if (hc == (BEGINX-9'd1)) begin  // empezamos a contar 8 pixeles antes, para tener ya el shiftreg cargado cuando comencemos de verdad
-         chc <= 8'd0;
-         if (vc == BEGINY)
-            cvc <= 8'd0;
-         else
-            cvc <= cvc + 8'd1;
-      end
-      else begin
-         chc <= chc + 8'd1;
-      end
+		
+		div <= ~div;
+		
+		if (div) begin
+	
+			// H and C counters for text window
+			if (dhc == (BEGINX-9'd1)) begin  // empezamos a contar 8 pixeles antes, para tener ya el shiftreg cargado cuando comencemos de verdad
+				chc <= 8'd0;
+				if (dvc == BEGINY)
+					cvc <= 8'd0;
+				else
+					cvc <= cvc + 8'd1;
+			end
+			else begin
+				chc <= chc + 8'd1;
+			end
 
-      // char generator
-      if (in_text_window) begin
-         if (chc[2:0] == 3'b010) begin
-            charaddr <= {cvc[7:3],5'b00000} + {2'b00,chc[7:3]};
-         end
-         if (chc[2:0] == 3'b100) begin         
-            character <= dout; // lee el caracter siguiente
-         end
-         if (chc[2:0] == 3'b111) begin
-            shiftreg <= charrom[{character,cvc[2:0]}];
-         end
-      end
-      if (showing_text_window && chc[2:0] != 3'b111) begin
-         shiftreg <= {shiftreg[6:0],1'b0};
-      end
+			// char generator
+			if (in_text_window) begin
+				if (chc[2:0] == 3'b010) begin
+					charaddr <= {1'b0,cvc[7:4],5'b00000} + {2'b00,chc[7:3]};
+				end
+				if (chc[2:0] == 3'b100) begin         
+					character <= dout; // lee el caracter siguiente
+				end
+				if (chc[2:0] == 3'b111) begin
+					shiftreg <= charrom[{character,cvc[3:1]}];
+				end
+			end
+			if (showing_text_window && chc[2:0] != 3'b111) begin
+				shiftreg <= {shiftreg[6:0],1'b0}; 
+			end
+		end
     end
     
     always @* begin
@@ -230,7 +230,6 @@ endmodule
 
 module teletype (
    input wire clk,
-   input wire mode,
    input wire [7:0] chr,
    input wire we,
    output reg busy,
@@ -240,10 +239,9 @@ module teletype (
    output wire [5:0] b,
    output wire hsync,
    output wire vsync,
-   output wire csync,
 	output wire blank,
-	output wire [9:0] hcnt,
-	output wire [9:0] vcnt
+	output wire [11:0] hcnt,
+	output wire [11:0] vcnt
    );
 
    reg [9:0] addr = 10'd0;
@@ -253,7 +251,6 @@ module teletype (
     
    window_on_background screen (
     .clk(clk),
-    .mode(mode),
     .addr(addr),
     .data(dscreen),
     .we(wescreen),
@@ -263,7 +260,6 @@ module teletype (
     .b(b),
     .hsync(hsync),
     .vsync(vsync),
-    .csync(csync),
 	 .blank(blank),
 	 .hcnt(hcnt),
 	 .vcnt(vcnt)
@@ -354,9 +350,6 @@ endmodule
 
 module updater (
    input wire clk,
-   input wire mode,
-   //--------------------------
-   input wire vga,
    input wire [56:0] dna,
    input wire memtest_progress,
    input wire memtest_result,
@@ -380,10 +373,9 @@ module updater (
    output wire [5:0] b,
    output wire hsync,
    output wire vsync,
-   output wire csync,
 	output wire blank,
-	output wire [9:0] hcnt,
-	output wire [9:0] vcnt
+	output wire [11:0] hcnt,
+	output wire [11:0] vcnt
    );
       
    reg [7:0] chr = 8'd0;
@@ -392,7 +384,6 @@ module updater (
    
    teletype teletipo (
      .clk(clk),
-     .mode(mode),
      .chr(chr),
      .we(we),
      .busy(busy),
@@ -402,7 +393,6 @@ module updater (
      .b(b),
      .hsync(hsync),
      .vsync(vsync),
-     .csync(csync),
 	  .blank(blank),
 	  .hcnt(hcnt),
 	  .vcnt(vcnt)
@@ -632,12 +622,7 @@ module updater (
       case (estado)
          PUTVIDEO:
             begin
-               if (vga == 1'b1)
-                  addrstr <= ADDRVGA;
-               else if (mode == 1'b0)
-                  addrstr <= ADDRPAL;
-               else
-                  addrstr <= ADDRNTSC;
+					addrstr <= ADDRVGA;
                estado <= SENDSTR;
                retorno_de_sendstr <= PUTDNA;
             end

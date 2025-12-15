@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Mar 19 23:35:03 2024
+# Date: Mon Dec 15 21:05:05 2025
 #
 ##############################################################
 #
@@ -128,7 +128,7 @@ CSET dcm_clkgen_notes=None
 CSET dcm_clkgen_spread_spectrum=NONE
 CSET dcm_clkgen_startup_wait=false
 CSET dcm_clkin_divide_by_2=false
-CSET dcm_clkin_period=40.000
+CSET dcm_clkin_period=25.000
 CSET dcm_clkout_phase_shift=NONE
 CSET dcm_deskew_adjust=SYSTEM_SYNCHRONOUS
 CSET dcm_notes=None
@@ -266,4 +266,4 @@ CSET use_status=false
 MISC pkg_timestamp=2012-05-10T12:44:55Z
 # END Extra information
 GENERATE
-# CRC: 83815660
+# CRC: 2c47355b

@@ -48,9 +48,19 @@ module flashtest (
       .din(data_from_flash),
       .hexout(vendor_code_hex)
    );
+	
+	reg [3:0] divisor = 4'b0000;
+   always @(posedge clk)
+      divisor <= divisor + 4'd1;
    
+	wire clkf;  // el reloj de la flash no puede superar los 4 MHz
+   BUFG bclkf (
+      .I(divisor[3]), // 40/16=2.5 MHz
+      .O(clkf)
+   );
+	   
    spi chipflash (
-      .clk(clk),         // 7MHz
+      .clk(clkf),         // 2.5MHz
       .enviar_dato(send_data), // a 1 para indicar que queremos enviar un dato por SPI
       .recibir_dato(receive_data), // a 1 para indicar que queremos recibir un dato
       .din(data_to_flash),   // del bus de datos de salida de la CPU
@@ -74,7 +84,7 @@ module flashtest (
       WAIT1CLKRECV = 4'd13,
       WAITRECV = 4'd14
       ;
-   always @(posedge clk) begin
+   always @(posedge clkf) begin
       case (estado)
          INIT:
             begin

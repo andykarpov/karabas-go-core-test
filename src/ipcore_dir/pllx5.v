@@ -55,8 +55,8 @@
 // "Output    Output      Phase     Duty      Pk-to-Pk        Phase"
 // "Clock    Freq (MHz) (degrees) Cycle (%) Jitter (ps)  Error (ps)"
 //----------------------------------------------------------------------------
-// CLK_OUT1___125.000______0.000______50.0______360.000____150.000
-// CLK_OUT2___125.000____180.000______50.0______360.000____150.000
+// CLK_OUT1___200.000______0.000______50.0______300.000____150.000
+// CLK_OUT2___200.000____180.000______50.0______300.000____150.000
 //
 //----------------------------------------------------------------------------
 // "Input Clock   Freq (MHz)    Input Jitter (UI)"
@@ -65,7 +65,7 @@
 
 `timescale 1ps/1ps
 
-(* CORE_GENERATION_INFO = "pllx5,clk_wiz_v3_6,{component_name=pllx5,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,feedback_source=FDBK_AUTO,primtype_sel=DCM_SP,num_out_clk=2,clkin1_period=40.000,clkin2_period=40.000,use_power_down=false,use_reset=false,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=AUTO,manual_override=true}" *)
+(* CORE_GENERATION_INFO = "pllx5,clk_wiz_v3_6,{component_name=pllx5,use_phase_alignment=true,use_min_o_jitter=false,use_max_i_jitter=false,use_dyn_phase_shift=false,use_inclk_switchover=false,use_dyn_reconfig=false,feedback_source=FDBK_AUTO,primtype_sel=DCM_SP,num_out_clk=2,clkin1_period=25.000,clkin2_period=25.000,use_power_down=false,use_reset=false,use_locked=true,use_inclk_stopped=false,use_status=false,use_freeze=false,use_clk_valid=false,feedback_type=SINGLE,clock_mgr_type=AUTO,manual_override=true}" *)
 module pllx5
  (// Clock in ports
   input         CLK_IN1,
@@ -100,7 +100,7 @@ module pllx5
     .CLKFX_DIVIDE          (1),
     .CLKFX_MULTIPLY        (5),
     .CLKIN_DIVIDE_BY_2     ("FALSE"),
-    .CLKIN_PERIOD          (40.000),
+    .CLKIN_PERIOD          (25.000),
     .CLKOUT_PHASE_SHIFT    ("NONE"),
     .CLK_FEEDBACK          ("1X"),
     .DESKEW_ADJUST         ("SYSTEM_SYNCHRONOUS"),

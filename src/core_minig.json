@@ -1,7 +1,7 @@
 {
     "id": "test",
     "name": "Test Core",
-    "build": "25121515",
+    "build": "25121600",
     "bitstream": "karabas_minig_top.bin",
     "visible": true,
     "type": "hidden",

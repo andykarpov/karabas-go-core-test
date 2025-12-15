@@ -123,11 +123,8 @@ module karabas_minig_top (
 	output wire FLASH_HOLD_N	
 );
 
-   wire mode, vga;
-
    wire [5:0] r_to_vga, g_to_vga, b_to_vga;
-   wire hsync_to_vga, vsync_to_vga, csync_to_vga;
-	wire hsync_aux;
+   wire hsync_to_vga, vsync_to_vga, blank_to_vga;
    
    wire memtest_init_fast, memtest_init_slow, memtest_progress, memtest_result;
    wire sdtest_init, sdtest_progress, sdtest_result;
@@ -148,7 +145,7 @@ module karabas_minig_top (
 	
 	wire [11:0] joy_l_md, joy_r_md;
    
-   wire clk100, clk14, clk7;
+   wire clk100, clk14, clk7, clk40;
    wire clocks_ready;
    
    relojes los_relojes (
@@ -156,13 +153,14 @@ module karabas_minig_top (
     .CLK_OUT1(clk100),
     .CLK_OUT2(clk14),
     .CLK_OUT3(clk7),
+	 .CLK_OUT4(clk40),
     .locked(clocks_ready)
     );
 	 
 	 wire clk_hdmi, clk_hdmi_n, lockedx5;
 	 
 	 pllx5 pllx5(
-		.CLK_IN1(clk14),
+		.CLK_IN1(clk40),
 		.CLK_OUT1(clk_hdmi),
 		.CLK_OUT2(clk_hdmi_n),
 		.LOCKED(lockedx5)
@@ -171,18 +169,16 @@ module karabas_minig_top (
    wire [56:0] dna;
 
    get_dna dna_fpga (
-      .clk(clk7),
+      .clk(clk40),
       .dna(dna)
    );
 
    switch_mode teclas (
-      .clk(clk7),
+      .clk(clk40),
 
       .kbd_status(hid_kb_status),
       .kbd_data(hid_kb_data),
 
-      .mode(mode),
-      .vga(vga),
       .memtestf(memtest_init_fast),
       .memtests(memtest_init_slow),
       .sdtest(sdtest_init),
@@ -194,7 +190,7 @@ module karabas_minig_top (
    );
 
 ramtest16b test_de_ram (
-      .clk(clk100),
+      .clk(clk40),
       .hold(~clocks_ready),
       .rstf(memtest_init_fast),
       .rsts(memtest_init_slow),
@@ -207,7 +203,7 @@ ramtest16b test_de_ram (
    );
 
    sdtest test_slot_sd (
-      .clk(clk7),
+      .clk(clk40),
       .rst(sdtest_init),
       .spi_clk(SD_CLK),
       .spi_di(SD_DI),
@@ -220,7 +216,7 @@ ramtest16b test_de_ram (
    wire flash_clk, flash_mosi, flash_miso, flash_cs_n; // todo
 
    flashtest test_spi_flash (
-      .clk(clk7),
+      .clk(clk40),
       .rst(flashtest_init),
       .spi_clk(flash_clk),
       .spi_di(flash_mosi),
@@ -232,7 +228,7 @@ ramtest16b test_de_ram (
    );
 
    eartest test_ear (
-      .clk(clk7),
+      .clk(clk40),
       .ear(~TAPE_IN),
       .vs(vsync_to_vga),
       .code(earcode)
@@ -240,16 +236,8 @@ ramtest16b test_de_ram (
 
    assign mousebutton = ms_b;
 
-/*   mousetest test_raton (
-      .clk(clk7),
-      .rst(mousetest_init),
-      .ps2clk(mouseclk),
-      .ps2data(mousedata),
-      .botones(mousebutton)
-   );*/
-
   sdramtest test_sdram (
-    .clk(clk100),
+    .clk(clk40),
     .rst(sdramtest_init),
     .pll_locked(clocks_ready),
     .test_in_progress(sdramtest_progress),
@@ -267,10 +255,10 @@ ramtest16b test_de_ram (
     .sdram_dq(SDR_DQ)    
    );
 
+   wire [11:0] hcnt_ext, vcnt_ext;
+
    updater mensajes (
-     .clk(clk7),
-     .mode(mode),
-     .vga(vga),
+     .clk(clk40),
      
      .dna(dna),
      .memtest_progress(memtest_progress),
@@ -295,33 +283,13 @@ ramtest16b test_de_ram (
      .b(b_to_vga),
      .hsync(hsync_to_vga),
      .vsync(vsync_to_vga),
-     .csync(csync_to_vga)
+	  .blank(blank_to_vga),
+	  .hcnt(hcnt_ext),
+	  .vcnt(vcnt_ext)
      );
-
-	wire [7:0] osd_r, osd_g, osd_b;
-	wire osd_hs, osd_vs, osd_blank;
-
-   vga_scandoubler #(.CLKVIDEO(7000)) modo_vga (
-      .clkvideo(clk7),
-      .clkvga(clk14),
-      .enable_scandoubling(vga),
-      .disable_scaneffect(1'b1),
-      .ri(r_to_vga),
-      .gi(g_to_vga),
-      .bi(b_to_vga),
-      .hsync_ext_n(hsync_to_vga),
-      .vsync_ext_n(vsync_to_vga),
-      .csync_ext_n(csync_to_vga),
-      .ro(osd_r),
-      .go(osd_g),
-      .bo(osd_b),
-      .hsync(osd_hs),
-      .vsync(osd_vs),
-		.blank(osd_blank)
-   );
    
    audio_test audio (
-      .clk(clk14),
+      .clk(clk40),
       .left(audio_out_l),
       .right(audio_out_r),
       .led()
@@ -335,7 +303,7 @@ wire [15:0] softsw_command;
 wire mcu_busy;
 
 mcu mcu(
-	.CLK(clk14),
+	.CLK(clk40),
 	.N_RESET(~clocks_ready),
 	
 	.MCU_MOSI(MCU_MOSI),
@@ -387,7 +355,7 @@ assign joy_r_md = {joy_r[12], joy_r[9], joy_r[10], joy_r[11], joy_r[5], joy_r[6]
 wire kb_reset;
 
 soft_switches soft_switches(
-	.CLK(clk14),
+	.CLK(clk40),
 	.SOFTSW_COMMAND(softsw_command),
 	.RESET(kb_reset)
 );
@@ -400,7 +368,7 @@ assign master_reset = kb_reset | mcu_busy;
 wire [15:0] audio_out_l, audio_out_r;
 
 PCM5102 PCM5102(
-	.clk(clk14),
+	.clk(clk40),
 	.left(audio_out_l),
 	.right(audio_out_r),
 	.din(DAC_DAT),
@@ -413,13 +381,13 @@ PCM5102 PCM5102(
 wire [9:0] tmds_red, tmds_green, tmds_blue;
 
 hdmi hdmi(
-	.I_CLK_PIXEL(clk14),
-	.I_R(osd_r),
-	.I_G(osd_g),
-	.I_B(osd_b),
-	.I_BLANK(osd_blank),
-	.I_HSYNC(osd_hs),
-	.I_VSYNC(osd_vs),
+	.I_CLK_PIXEL(clk40),
+	.I_R({r_to_vga, 2'b00}),
+	.I_G({g_to_vga, 2'b00}),
+	.I_B({b_to_vga, 2'b00}),
+	.I_BLANK(blank_to_vga),
+	.I_HSYNC(hsync_to_vga),
+	.I_VSYNC(vsync_to_vga),
 	.I_AUDIO_ENABLE(1'b1),
 	.I_AUDIO_PCM_L(audio_out_l[15:0]),
 	.I_AUDIO_PCM_R(audio_out_r[15:0]),
@@ -429,7 +397,7 @@ hdmi hdmi(
 );
 
 hdmi_out_xilinx hdmiio(
-	.clock_pixel_i(clk14),
+	.clock_pixel_i(clk40),
 	.clock_tdms_i(clk_hdmi),
 	.clock_tdms_n_i(clk_hdmi_n),
 	.red_i(tmds_red),

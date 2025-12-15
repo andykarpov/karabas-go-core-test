@@ -9,11 +9,9 @@
 //-- design of HDMI output for Neo Geo MVS
 
 module hdmidataencoder 
-#(FS=48000, N=6144) 
+#(parameter FREQ=27000000, FS=48000, CTS=27000, N=6144) 
 (
    input wire         i_pixclk,
-	input wire [7:0]   i_freq,
-	input wire         i_reset,
    input wire         i_hSync,
    input wire         i_vSync,
    input wire         i_blank,
@@ -27,20 +25,9 @@ module hdmidataencoder
 );
 
 `define AUDIO_TIMER_ADDITION  FS/1000
-//`define AUDIO_TIMER_LIMIT  FREQ/1000
+`define AUDIO_TIMER_LIMIT  FREQ/1000
 localparam [191:0] channelStatus = (FS == 48000)?192'hc202004004:(FS == 44100)?192'hc200004004:192'hc203004004;
-reg [31:0] AUDIO_TIMER_LIMIT;
-reg [31:0] CTS;
-reg [55:0] audioRegenPacket;
-
-always @(posedge i_pixclk)
-begin
-	AUDIO_TIMER_LIMIT <= i_freq * 1000;
-	CTS <= i_freq * 1000;
-	audioRegenPacket <= {N[7:0], N[15:8], 8'h00, CTS[7:0], CTS[15:8], 16'h0000};
-end
-
-//localparam [55:0] audioRegenPacket = {N[7:0], N[15:8], 8'h00, CTS[7:0], CTS[15:8], 16'h0000};
+localparam [55:0] audioRegenPacket = {N[7:0], N[15:8], 8'h00, CTS[7:0], CTS[15:8], 16'h0000};
 reg [23:0] audioPacketHeader;
 reg [55:0] audioSubPacket[3:0];
 reg [7:0] channelStatusIdx;
@@ -172,23 +159,23 @@ begin
       _timer <= _timer - CTS + 1;
    end else begin
       if (!oddLine) begin
-         packetHeader<=24'h0D0282;  // infoframe AVI packet v2
+         packetHeader<=24'h0D0282;  // infoframe AVI packet 
          // Byte0: Checksum (256-(S%256))%256
-         // Byte1: 12 = 0(Y1:Y0<=0 RGB)(A0=1 active format valid)(B1:B0=00 No bar info)(S1:S0=10 Underscan)
+         // Byte1: 10 = 0(Y1:Y0<=0 RGB)(A0=1 active format valid)(B1:B0=00 No bar info)(S1:S0=00 No scan info)
          // Byte2: 19 = (C1:C0=0 No colorimetry)(M1:M0=1 4:3)(R3:R0=9 4:3 center)
-         // Byte3: 80 = 0(SC1:SC0=0 No scaling)
+         // Byte3: 00 = 0(SC1:SC0=0 No scaling)
          // Byte4: 00 = 0(VIC6:VIC0=0 custom resolution)
-         // Byte5: 30 = 0(PR5:PR0=0 No repeation)
-         subpacket[0]<=56'h00300080191294;
+         // Byte5: 00 = 0(PR5:PR0=0 No repeation)
+         subpacket[0]<=56'h00000000191046;
          subpacket[1]<=56'h00000000000000;
       end else begin
          packetHeader<=24'h0A0184;  // infoframe audio packet
          // Byte0: Checksum (256-(S%256))%256
-         // Byte1: 01 = (CT3:0=1 PCM)0(CC2:0=1 2ch)
+         // Byte1: 11 = (CT3:0=1 PCM)0(CC2:0=1 2ch)
          // Byte2: 00 = 000(SF2:0=0 As stream)(SS1:0=0 As stream)
          // Byte3: 00 = LPCM doesn't use this
          // Byte4-5: 00 Multichannel only (>2ch)
-         subpacket[0]<=56'h00000000000170;
+         subpacket[0]<=56'h00000000001160;
          subpacket[1]<=56'h00000000000000;
       end
       subpacket[2]<=56'h00000000000000;
@@ -215,8 +202,8 @@ begin
    // Buffer up an audio sample
    // Don't add to the audio output if we're currently sending that packet though
    if (!( allowGeneration && counterX >= 32 && counterX < 64)) begin
-      if (audioTimer>=AUDIO_TIMER_LIMIT) begin
-         audioTimer<=audioTimer-AUDIO_TIMER_LIMIT+`AUDIO_TIMER_ADDITION;
+      if (audioTimer>=`AUDIO_TIMER_LIMIT) begin
+         audioTimer<=audioTimer-`AUDIO_TIMER_LIMIT+`AUDIO_TIMER_ADDITION;
          audioPacketHeader<=audioPacketHeader|24'h000002|((channelStatusIdx==0?24'h100100:24'h000100)<<samplesHead);
          audioSubPacket[samplesHead]<=((audioLAvg<<8)|(audioRAvg<<32)
                         |((^audioLAvg)?56'h08000000000000:56'h0)  // parity bit for left channel
@@ -255,79 +242,41 @@ begin
 end
 endtask
 
-always @(posedge i_pixclk, posedge i_reset)
+always @(posedge i_pixclk)
 begin
    
-	if (i_reset) begin
-		audioPacketHeader<=0;
-		audioSubPacket[0]<=0;
-		audioSubPacket[1]<=0;
-		audioSubPacket[2]<=0;
-		audioSubPacket[3]<=0;
-		channelStatusIdx<=0;
-		audioTimer<=0;
-		samplesHead<=0;
-		//ctsTimer = 0;
-		dataChannel0<=0;
-		dataChannel1<=0;
-		dataChannel2<=0;
-		packetHeader<=0;
-		subpacket[0]<=0;
-		subpacket[1]<=0;
-		subpacket[2]<=0;
-		subpacket[3]<=0;
-		bchHdr<=0;
-		bchCode[0]<=0;
-		bchCode[1]<=0;
-		bchCode[2]<=0;
-		bchCode[3]<=0;
-		dataOffset<=0;
-		tercData<=0;
-		oddLine<=0;
-		counterX<=0;
-		//prevHSync = 0;
-		//prevBlank = 0;
-		//firstHSyncChange = 0;
-		//allowGeneration = 0;
-		//audioRAvg = 0;
-		//audioLAvg = 0;	
-	end
-	else
-	begin
-	
-		AudioGen();
+   AudioGen();
 
-		// Send 2 packets each line
-		if(allowGeneration & i_audio_enable) begin
-			SendPackets(tercData);
-		end else begin
-			tercData<=0;
-		end   
+   // Send 2 packets each line
+   if(allowGeneration & i_audio_enable) begin
+      SendPackets(tercData);
+   end else begin
+      tercData<=0;
+   end   
 
-		ctsTimer <= ctsTimer + 1;  
+   ctsTimer <= ctsTimer + 1;  
 
-		if((prevBlank == 0) && (i_blank == 1)) 
-			firstHSyncChange <= 1;
-		
-		if((prevBlank == 1) && (i_blank == 0)) 
-			allowGeneration <= 0;
+   if((prevBlank == 0) && (i_blank == 1)) 
+      firstHSyncChange <= 1;
+   
+   if((prevBlank == 1) && (i_blank == 0)) 
+      allowGeneration <= 0;
 
-		if(prevHSync != i_hSync) begin
-			if(firstHSyncChange) begin
-				InfoGen(ctsTimer);
-				oddLine <= ! oddLine;
-				counterX  <= 0;
-				allowGeneration <= 1;
-			end else begin
-				counterX  <= counterX + 1; 
-			end
-			firstHSyncChange <= !firstHSyncChange;
-		end else 
-			counterX  <= counterX + 1; 
-		
-		prevBlank <= i_blank;
-		prevHSync <= i_hSync;
-	end
+   if(prevHSync != i_hSync) begin
+      if(firstHSyncChange) begin
+         InfoGen(ctsTimer);
+         oddLine <= ! oddLine;
+         counterX  <= 0;
+         allowGeneration <= 1;
+      end else begin
+         counterX  <= counterX + 1; 
+      end
+      firstHSyncChange <= !firstHSyncChange;
+   end else 
+      counterX  <= counterX + 1; 
+   
+   prevBlank <= i_blank;
+   prevHSync <= i_hSync;
 end
 
 assign o_d0 = dataChannel0;

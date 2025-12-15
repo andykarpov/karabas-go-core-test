@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <symbol version="7" name="pllx5">
     <symboltype>BLOCK</symboltype>
-    <timestamp>2024-3-19T23:35:21</timestamp>
+    <timestamp>2025-12-15T21:5:23</timestamp>
     <pin polarity="Input" x="0" y="80" name="clk_in1" />
     <pin polarity="Output" x="608" y="80" name="clk_out1" />
     <pin polarity="Output" x="608" y="176" name="clk_out2" />

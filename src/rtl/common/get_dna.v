@@ -25,13 +25,13 @@ module get_dna (
    output reg [56:0] dna
    );
 
-   reg [1:0] divisor = 2'b00;
+   reg [4:0] divisor = 5'b00000;
    always @(posedge clk)
-      divisor <= divisor + 2'd1;
+      divisor <= divisor + 5'd1;
       
    wire clkdna;  // el reloj de la DNA no puede superar los 2 MHz
    BUFG bclkdna (
-      .I(divisor[1]),
+      .I(divisor[4]), // 40/32=1.25 MHz
       .O(clkdna)
    );
 

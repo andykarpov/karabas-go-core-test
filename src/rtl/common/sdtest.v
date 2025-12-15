@@ -41,9 +41,19 @@ module sdtest (
    wire [7:0] data_from_sd;
    wire ready;
    initial spi_cs = 1'b1;
+	
+	reg [3:0] divisor = 4'b0000;
+   always @(posedge clk)
+      divisor <= divisor + 4'd1;
    
+	wire clksd;  // el reloj de la SD no puede superar los 4 MHz
+   BUFG bclksd (
+      .I(divisor[3]), // 40/16=2.5 MHz
+      .O(clksd)
+   );
+	
    spi slotsd (
-      .clk(clk),         // 7MHz
+      .clk(clksd),         // 2.5MHz
       .enviar_dato(send_data), // a 1 para indicar que queremos enviar un dato por SPI
       .recibir_dato(receive_data), // a 1 para indicar que queremos recibir un dato
       .din(data_to_sd),   // del bus de datos de salida de la CPU
@@ -84,7 +94,7 @@ module sdtest (
       WAIT1CLKRECV = 4'd13,
       WAITRECV = 4'd14
       ;
-   always @(posedge clk) begin
+   always @(posedge clksd) begin
       case (estado)
          SENDCLOCKS:
             begin
