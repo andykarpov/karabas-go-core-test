@@ -35,7 +35,8 @@ module vga_scandoubler (
     output reg [7:0] go,
     output reg [7:0] bo,
     output reg hsync,
-    output reg vsync
+    output reg vsync,
+	 output reg blank
    );
     
     parameter [31:0] CLKVIDEO = 12000;
@@ -51,8 +52,8 @@ module vga_scandoubler (
     reg [9:0] totalhor = 10'd0;
 
     wire [5:0] rout, gout, bout;
-    // Memoria de doble puerto que guarda la información de dos scans
-    // Cada scan puede ser de hasta 1024 puntos, incluidos aquí los
+    // Memoria de doble puerto que guarda la informacin de dos scans
+    // Cada scan puede ser de hasta 1024 puntos, incluidos aqu los
     // puntos en negro que se pintan durante el HBlank
     vgascanline_dport memscan (
         .clk(clkvga),
@@ -75,7 +76,7 @@ module vga_scandoubler (
         
     // Voy alternativamente escribiendo en una mitad o en otra del scan buffer
     // Cambio de mitad cada vez que encuentro un pulso de sincronismo horizontal
-    // En "totalhor" mido el número de ciclos de reloj que hay en un scan
+    // En "totalhor" mido el nmero de ciclos de reloj que hay en un scan
     always @(posedge clkvideo) begin
 //        if (vsync_ext_n == 1'b0) begin
 //            addrvideo <= 11'd0;
@@ -90,11 +91,11 @@ module vga_scandoubler (
     
     // Recorro el scanbuffer al doble de velocidad, generando direcciones para
     // el scan buffer. Cada vez que el video original ha terminado una linea,
-    // cambio de mitad de buffer. Cuando termino de recorrerlo pero aún no
+    // cambio de mitad de buffer. Cuando termino de recorrerlo pero an no
     // estoy en un retrazo horizontal, simplemente vuelvo a recorrer el scan buffer
     // desde el mismo origen
     // Cada vez que termino de recorrer el scan buffer basculo "scaneffect" que
-    // uso después para mostrar los píxeles a su brillo nominal, o con su brillo
+    // uso despus para mostrar los pxeles a su brillo nominal, o con su brillo
     // reducido para un efecto chachi de scanlines en la VGA
     always @(posedge clkvga) begin
 //        if (vsync_ext_n == 1'b0) begin
@@ -113,19 +114,23 @@ module vga_scandoubler (
             addrvga <= addrvga + 11'd1;
     end
 
-    // El HSYNC de la VGA está bajo sólo durante HSYNC_COUNT ciclos a partir del comienzo
+    // El HSYNC de la VGA est bajo slo durante HSYNC_COUNT ciclos a partir del comienzo
     // del barrido de un scanline
     reg hsync_vga, vsync_vga;
+	 wire blank_vga = (~hsync_vga || ~vsync_vga) ? 1'b1 : 1'b0;
     
     always @* begin
-        if (addrvga[9:0] < HSYNC_COUNT[9:0])
+        if (addrvga[9:0] < HSYNC_COUNT[9:0]) begin
             hsync_vga = 1'b0;
+		  end
         else
+				begin
             hsync_vga = 1'b1;
+				end
     end
     
-    // El VSYNC de la VGA está bajo sólo durante VSYNC_COUNT ciclos a partir del flanco de
-    // bajada de la señal de sincronismo vertical original
+    // El VSYNC de la VGA est bajo slo durante VSYNC_COUNT ciclos a partir del flanco de
+    // bajada de la seal de sincronismo vertical original
     reg [15:0] cntvsync = 16'hFFFF;
     initial vsync_vga = 1'b1;
     always @(posedge clkvga) begin
@@ -154,6 +159,7 @@ module vga_scandoubler (
             bo = {bi, 3'b0};
             hsync = csync_ext_n;
             vsync = 1'b1;
+				blank = 1'b1;
         end
         else begin  // VGA output
             ro = {ro_vga, 3'b0};
@@ -161,6 +167,7 @@ module vga_scandoubler (
             bo = {bo_vga, 3'b0};
             hsync = hsync_vga;
             vsync = vsync_vga;
+				blank = blank_vga;
         end
     end
     

@@ -1,0 +1,15 @@
+{
+    "id": "test",
+    "name": "Test Core",
+    "build": "25121515",
+    "bitstream": "karabas_mini_top.bin",
+    "visible": true,
+    "type": "hidden",
+    "order": 255,
+    "eeprom_bank": 255,
+    "roms": [
+    ],
+    "osd": [
+        {"type": "T", "bits": 1, "name": "Reset", "options": null, "default": 0, "hotkey": "Ctrl+Alt+Del"}
+    ]
+}

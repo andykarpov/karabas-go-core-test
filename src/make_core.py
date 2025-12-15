@@ -1,0 +1,1 @@
+../../karabas-go-tools/make_core/make_core.py
