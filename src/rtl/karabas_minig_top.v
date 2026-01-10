@@ -301,6 +301,7 @@ wire [2:0] ms_b;
 wire [7:0] hid_kb_status, hid_kb_data;
 wire [15:0] softsw_command;
 wire mcu_busy;
+wire dvi_only;
 
 mcu mcu(
 	.CLK(clk40),
@@ -342,6 +343,9 @@ mcu mcu(
 	.SOFTSW_COMMAND(softsw_command),	
 	.OSD_COMMAND(),
 	
+	.HWID(),
+	.DVI_ONLY(dvi_only),	
+	
 	.BUSY(mcu_busy)
 );
 
@@ -367,7 +371,7 @@ assign master_reset = kb_reset | mcu_busy;
 
 wire [15:0] audio_out_l, audio_out_r;
 
-PCM5102 PCM5102(
+PCM5102 #(.DAC_CLK_DIV_BITS(3)) PCM5102(
 	.clk(clk40),
 	.left(audio_out_l),
 	.right(audio_out_r),
@@ -396,13 +400,27 @@ hdmi hdmi(
 	.O_BLUE(tmds_blue)
 );
 
+wire [9:0] dvi_red, dvi_green, dvi_blue;
+
+dvi dvi(
+	.CLK(clk40),
+	.RESET(~clocks_ready),
+	.RGB({r_to_vga, 2'b00, g_to_vga, 2'b00, b_to_vga, 2'b00}),
+	.HSYNC(hsync_to_vga),
+	.VSYNC(vsync_to_vga),
+	.DE(~blank_to_vga),
+	.ENC_RED(dvi_red),
+	.ENC_GREEN(dvi_green),
+	.ENC_BLUE(dvi_blue)
+);
+
 hdmi_out_xilinx hdmiio(
 	.clock_pixel_i(clk40),
 	.clock_tdms_i(clk_hdmi),
 	.clock_tdms_n_i(clk_hdmi_n),
-	.red_i(tmds_red),
-	.green_i(tmds_green),
-	.blue_i(tmds_blue),
+	.red_i(dvi_only ? dvi_red : tmds_red),
+	.green_i(dvi_only ? dvi_green : tmds_green),
+	.blue_i(dvi_only ? dvi_blue : tmds_blue),
 	.tmds_out_p(TMDS_P),
 	.tmds_out_n(TMDS_N)
 );	
