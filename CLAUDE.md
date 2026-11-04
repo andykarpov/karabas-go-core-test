@@ -22,7 +22,7 @@ The core is not converted to karabas-go-modules: it carries its own MCU link, so
 ## Build
 
 - Open `src/karabas-go.xise`, `karabas-mini.xise` or `karabas-minig.xise` in ISE 14.7 and run Generate Programming File; "Create Binary Configuration File" is on, so ISE writes `src/karabas_<board>_top.bin`. There is no Makefile or build script.
-- Pack with `make_core.py` (a symlink to `../../karabas-go-tools/make_core/make_core.py`, the sibling repo must be checked out next to this one) from `core.json` (Go), `core_mini.json`, `core_minig.json` into `src/test.kg1` / `kg2` / `kg3`. The `.bin` and `.kg*` files are committed; the ISE outputs are in `.gitignore`.
+- Pack with `make_core.py` (a symlink to `../../karabas-go-tools/make_core/make_core.py`, the sibling repo must be checked out next to this one) from `core.json` (one file for all boards: the common keys, `boards` for what differs; kgo2, karabas-go-tools `docs/kgo2.md`) into `src/test.kg` (`make_core.py core.json test.kg`, or `--boards <board>` for one board's bitstream). The `.bin` and `.kg` files are committed; the ISE outputs are in `.gitignore`.
 - The json: id `test`, `"type": "hidden"`, no ROMs, `eeprom_bank` 255 (none), one OSD item Reset (Ctrl+Alt+Del). The `build` of `core.json` (24030514) is older than that of the Mini files (26011000).
 - `src/karabas_go.bin` (tracked) is from an older Go project with a VHDL top; the current Go project writes `karabas_go_top.bin`, the one `core.json` packs.
 
@@ -33,7 +33,7 @@ The core is not converted to karabas-go-modules: it carries its own MCU link, so
 
 ## Release
 
-- `karabas-go/cores/test.kg1` of the release repo is the same file as `src/test.kg1`.
+- `cores/test.kg` of the release repos `karabas-go` / `karabas-mini` is the same file as `src/test.kg`.
 
 ## Memory
 
