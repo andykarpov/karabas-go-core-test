@@ -33,7 +33,7 @@ The core is not converted to karabas-go-modules: it carries its own MCU link, so
 
 ## Release
 
-- `cores/test.kg` of the release repos `karabas-go` / `karabas-mini` is the same file as `src/test.kg`.
+- `cores/test.kg` of the release repo `karabas-go` (all boards) is the same file as `src/test.kg`.
 
 ## Memory
 
