@@ -7,9 +7,9 @@
     "eeprom_bank": 255,
     "roms": [],
     "boards": {
-        "go": {"build": "24030514", "bitstream": "karabas_go_top.bin"},
-        "mini": {"build": "26011000", "bitstream": "karabas_mini_top.bin"},
-        "minig": {"build": "26011000", "bitstream": "karabas_minig_top.bin"}
+        "go": {"link": 2, "build": "26111326", "bitstream": "karabas_go_top.bin"},
+        "mini": {"link": 2, "build": "26111326", "bitstream": "karabas_mini_top.bin"},
+        "minig": {"link": 2, "build": "26111322", "bitstream": "karabas_minig_top.bin"}
     },
     "osd": [
     {"type": "T", "bits": 1, "name": "Reset", "options": null, "default": 0, "hotkey": "Ctrl+Alt+Del"}

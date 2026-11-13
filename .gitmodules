@@ -1,0 +1,4 @@
+[submodule "modules"]
+	path = modules
+	url = https://github.com/andykarpov/karabas-go-modules.git
+	branch = link-v2
