@@ -25,6 +25,7 @@
 -- Ukraine, 2023
 ------------------------------------------------------------------------------------------------------------------*/
 
+// karabas: MCU part made by src/tools/mktops.py (link v2)
 module karabas_go_top (
    //---------------------------
    input wire CLK_50MHZ,
@@ -112,7 +113,8 @@ module karabas_go_top (
 	input wire MCU_CS_N,
 	input wire MCU_SCK,
 	inout wire MCU_MOSI,
-	output wire MCU_MISO	
+	output wire MCU_MISO,
+	inout wire [1:0] MCU_SPI_IO   // [0] INT of link v2 (N9)
    );
 
 
@@ -307,71 +309,79 @@ ramtest16b test_de_ram (
       .led()
    );
 
-//---------- MCU ------------
+//---------- MCU: link v2 (karabas-go-firmware docs/link_v2.md, kg_mcu2); INT on MCU_SPI_IO[0] ------------
 
-wire [2:0] ms_b;
-wire [7:0] hid_kb_status, hid_kb_data;
-wire [15:0] softsw_command;
+wire [7:0] ms_b8;
+wire [2:0] ms_b = ms_b8[2:0];
+wire [55:0] hid_kbd;
+wire [7:0] hid_kb_status = hid_kbd[7:0], hid_kb_data = hid_kbd[15:8];
+wire [15:0] joy_l16, joy_r16;
+assign joy_l = joy_l16[12:0];
+assign joy_r = joy_r16[12:0];
+wire [7:0] sw;
 wire mcu_busy;
+wire mcu_int;
+assign MCU_SPI_IO[0] = mcu_int;
+assign MCU_SPI_IO[1] = 1'bz;
 
-mcu mcu(
+kg_mcu2 #(
+	.SW_N(1),
+	.CS_FILTER(3),
+	.ENABLE_OSD(0),
+	.ENABLE_FT(0),
+	.ENABLE_SD2(0)
+) mcu (
 	.CLK(clk14),
-	.N_RESET(~clocks_ready),
-	
+	.N_RESET(clocks_ready),
+
+	.MCU_SCK(MCU_SCK),
 	.MCU_MOSI(MCU_MOSI),
 	.MCU_MISO(MCU_MISO),
-	.MCU_SCK(MCU_SCK),
 	.MCU_SS(MCU_CS_N),
-	
-	.MS_X(),
-	.MS_Y(),
-	.MS_Z(),
-	.MS_B(ms_b),
-	.MS_UPD(),
-	
-	.KB_STATUS(hid_kb_status),
-	.KB_DAT0(hid_kb_data),
-	.KB_DAT1(),
-	.KB_DAT2(),
-	.KB_DAT3(),
-	.KB_DAT4(),
-	.KB_DAT5(),
-	
-	.JOY_L(joy_l),
-	.JOY_R(joy_r),
-	
-	.RTC_A(),
-	.RTC_DI(8'b00000000),
-	.RTC_DO(),
-	.RTC_CS(1'b1),
-	.RTC_WR_N(1'b1),
-	
-	.ROMLOADER_ACTIVE(),
-	.ROMLOAD_ADDR(),
-	.ROMLOAD_DATA(),
-	.ROMLOAD_WR(),
-	
-	.SOFTSW_COMMAND(softsw_command),	
-	.OSD_COMMAND(),
-	
-	.BUSY(mcu_busy)
+	.MCU_INT(mcu_int),
+	.MCU_SPI_FT_SS(1'b1),
+	.MCU_SPI_SD2_SS(1'b1),
+
+	.SW(sw), .SW_WR(), .SW_INDEX(), .SW_VALUE(), .HW_ID(), .DVI_ONLY(), .CORE_BUILD(), .FW_BUILD(),
+	.BUSY(mcu_busy), .BTNS(), .RELOAD_REQ(1'b0), .RELOAD_CORE(8'd0),
+
+	.KBD(hid_kbd), .KBD_WR(), .PS2_CODE(), .PS2_KIND(), .PS2_WR(),
+	.MS_X(), .MS_Y(), .MS_Z(), .MS_B(ms_b8), .MS_WR(),
+	.JOY_L(joy_l16), .JOY_R(joy_r16), .JOY_WR(),
+	.PS2_CMD(16'h0000), .PS2_CMD_WR(1'b0),
+
+	.LD_KIND(), .LD_SLOT(), .LD_SIZE(), .LD_START(), .LD_ACTIVE(), .LD_END(),
+	.LD_ADDR(), .LD_DATA(), .LD_WR(), .LD_READY(1'b1),
+
+	.OSD_WR(), .OSD_WADDR(), .OSD_WDATA(), .OSD_EN(), .OSD_FG(), .OSD_BG(), .OSD_ALPHA(),
+	.OSD_PX(), .OSD_PY(), .OSD_PW(), .OSD_PH(), .OSD_PLACE(), .OSD_ZOOM(),
+
+	.SDC_IMG_MOUNTED(), .SDC_IMG_SIZE(),
+	.SDC_RD(8'd0), .SDC_WR(8'd0), .SDC_SECTOR(32'd0),
+	.SDC_BUSY(), .SDC_DONE(), .SDC_ERROR(), .SDC_SLOT(),
+	.SDC_BYTE_IN_STROBE(), .SDC_BYTE_ADDR(), .SDC_BYTE_IN_DATA(), .SDC_BYTE_OUT_DATA(8'd0),
+	.IMG_WP(), .IMG_PHYS_WR(), .IMG_PHYS(), .IMG_FLUSH(), .FDD_CHNG_WR(), .FDD_CHNG(),
+	.FDD_CHNG_REQ(1'b0), .FDD_CHNG_DS(2'd0),
+	.BK_MOUNT(1'b0), .BK_FLUSHED(1'b0), .BK_SLOT(3'd0), .BK_SIZE(32'd0), .BK_KIND(8'd0), .BK_RESULT(8'd0),
+	.IMG_ACTIVE(),
+
+	.PORT_OUT_DATA(), .PORT_OUT_WR(), .PORT_OUT_READY(4'b1111), .PORT_IN_DATA(32'd0), .PORT_IN_WR(4'd0),
+	.PORT_CFG(128'd0), .PORT_IN_FULL(), .PORT_STAT(), .PORT_STAT_WR(),
+	.RTC_A(8'd0), .RTC_DI(8'd0), .RTC_CS(1'b0), .RTC_WR_N(1'b1), .RTC_DO(),
+	.MATRIX_CMD(24'd0), .MATRIX_CMD_WR(1'b0), .DEBUG_ADDR(16'd0), .DEBUG_DATA(16'd0),
+
+	.FT_SPI_ON(), .FT_VGA_ON(), .FT_RESET(), .FT_SCK(), .FT_MOSI(), .FT_MISO(1'b1), .FT_CS_N(),
+	.SD2_SCK(), .SD2_MOSI(), .SD2_MISO(1'b1), .SD2_CS_N()
 );
 
 // -- MZYX CBAS RLDU O Positive Logic
 // -- MXYZ SACB RLDU   Negative Logic
-assign joy_l_md = {joy_l[12], joy_l[9], joy_l[10], joy_l[11], joy_l[5], joy_l[6], joy_l[8], joy_l[7], joy_l[4:1]}; 
+assign joy_l_md = {joy_l[12], joy_l[9], joy_l[10], joy_l[11], joy_l[5], joy_l[6], joy_l[8], joy_l[7], joy_l[4:1]};
 assign joy_r_md = {joy_r[12], joy_r[9], joy_r[10], joy_r[11], joy_r[5], joy_r[6], joy_r[8], joy_r[7], joy_r[4:1]};
 
-//---------- Soft switches ------------
+//---------- Soft switches (the SW registers of kg_mcu2) ------------
 
-wire kb_reset;
-
-soft_switches soft_switches(
-	.CLK(clk14),
-	.SOFTSW_COMMAND(softsw_command),
-	.RESET(kb_reset)
-);
-
+wire kb_reset = sw[0];
 assign master_reset = kb_reset | mcu_busy;
 
 
@@ -379,8 +389,9 @@ assign master_reset = kb_reset | mcu_busy;
 
 wire [15:0] audio_out_l, audio_out_r;
 
-PCM5102 PCM5102(
+kg_pcm5102 PCM5102(
 	.clk(clk14),
+	.reset(~clocks_ready),
 	.left(audio_out_l),
 	.right(audio_out_r),
 	.din(DAC_DAT),
