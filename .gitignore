@@ -15,7 +15,6 @@ k# intermediate build files
 *.pad
 *.par
 *.pcf
-*.prj
 *.ptwx
 *.rbb
 *.rbd
@@ -24,9 +23,7 @@ k# intermediate build files
 *.twr
 *.twx
 *.unroutes
-*.ut
 *.xpi
-*.xst
 *_bitgen.xwbt
 *_envsettings.html
 *_map.map
@@ -66,3 +63,6 @@ xst/
 _ngo/
 _xmsgs/
 
+
+# make (src/Makefile)
+src/kg_*.stamp
