@@ -77,6 +77,11 @@ module ramtest16b (
    
    reg fastslow = 1'b0;  // 0: fast (100 MHz), 1:slow (50 MHz)
    reg [3:0] shiftreg = 4'b0101;
+   // Reads wait RD_WAIT clocks after the address change: with no wait the fast test sampled
+   // the data 10 ns after the address (a 10 ns SRAM plus the pad delays), so it passed or
+   // failed by the placement of the build.
+   localparam RD_WAIT = 2'd2;
+   reg [1:0] rdwait = 2'd0;
 	reg clk50 = 1'b0;
 
    always @(posedge clk) begin
@@ -110,7 +115,10 @@ module ramtest16b (
                 end
              end
           ADDSTORE:
-            begin
+            if (rdwait != RD_WAIT)
+              rdwait <= rdwait + 2'd1;
+            else begin
+              rdwait <= 2'd0;
               sram_dout <= sram_din + 16'h0001;
               estado <= WRITE;
               retorno_de_write <= INCMODIFY;
@@ -127,7 +135,10 @@ module ramtest16b (
                 end
              end
           CHECK:
-             begin
+             if (rdwait != RD_WAIT)
+                rdwait <= rdwait + 2'd1;
+             else begin
+                rdwait <= 2'd0;
                 data <= sram_din;
                 estado <= INCCHECK;
              end

@@ -147,7 +147,7 @@ module window_on_background (
     wire showing_text_window = (~hidetextwindow && dhc >= (BEGINX+9'd8) && dhc < (ENDX+9'd8) && dvc >= BEGINY && dvc < ENDY);
     
     reg [7:0] chc = 8'h00;
-    reg [7:0] cvc = 8'h00;
+    reg [8:0] cvc = 9'h000;  // 19 text rows x 16 lines (doubled) = 304: 9 bits
     reg [7:0] shiftreg;
     reg [7:0] character;
     wire [7:0] dout;
@@ -174,9 +174,9 @@ module window_on_background (
 			if (dhc == (BEGINX-9'd1)) begin  // empezamos a contar 8 pixeles antes, para tener ya el shiftreg cargado cuando comencemos de verdad
 				chc <= 8'd0;
 				if (dvc == BEGINY)
-					cvc <= 8'd0;
+					cvc <= 9'd0;
 				else
-					cvc <= cvc + 8'd1;
+					cvc <= cvc + 9'd1;
 			end
 			else begin
 				chc <= chc + 8'd1;
@@ -185,7 +185,7 @@ module window_on_background (
 			// char generator
 			if (in_text_window) begin
 				if (chc[2:0] == 3'b010) begin
-					charaddr <= {1'b0,cvc[7:4],5'b00000} + {2'b00,chc[7:3]};
+					charaddr <= {cvc[8:4],5'b00000} + {2'b00,chc[7:3]};
 				end
 				if (chc[2:0] == 3'b100) begin         
 					character <= dout; // lee el caracter siguiente
@@ -520,9 +520,9 @@ module updater (
       stringlist[91] = 8'd21;
       stringlist[92] = 8'hFF;
       
-      stringlist[93] = "O";  // ADDROKFLASH
-      stringlist[94] = "K";
-      stringlist[95] = "-";
+      stringlist[93] = "N";  // ADDROKFLASH: no SPI flash test on these boards
+      stringlist[94] = "/";
+      stringlist[95] = "A";
       stringlist[96] = " ";
       stringlist[97] = " ";
       stringlist[98] = 8'hFF;
@@ -763,15 +763,8 @@ module updater (
             end
          PUTFLASHTEST1:
             begin
-               if (flashtest_progress == 1'b1)
-                  addrstr <= ADDRINPROGRESS;
-               else if (flashtest_result == 1'b1) begin
-                  addrstr <= ADDROKFLASH;
-                  stringlist[ADDROKFLASH+3] <= flash_vendor_id[15:8];
-                  stringlist[ADDROKFLASH+4] <= flash_vendor_id[7:0];
-               end
-               else
-                  addrstr <= ADDRERROR;
+               // the flash test is not wired to pins on any board: show N/A
+               addrstr <= ADDROKFLASH;
                estado <= SENDSTR;
                retorno_de_sendstr <= PUTMOUSETEST;
             end
