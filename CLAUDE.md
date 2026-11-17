@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The board test core of the Karabas Go, Mini and Mini G: Xilinx Spartan-6 XC6SLX25 (speed grade -2), ISE 14.7 (XST), Verilog with some VHDL. The README calls it an adopted version of the ZXDOS test core; the screen says "KARABAS GO PCB TESTER" (`rtl/common/texto_inicial_lx25.txt`) and many module and instance names are Spanish (`relojes`, `teclas`, `mensajes`). No license file.
 
-It shows a text screen with the FPGA DNA and the results of the tests: SRAM fast / slow (`ramtest16b`), joysticks 1 and 2, switches, EAR, SDRAM (`sdramtest`), SD slot (`sdtest`), SPI flash (`flashtest`), mouse, and plays an audio sample (`audio_test`). Keys (`rtl/common/switch_mode.v`, USB keyboard scancodes): 1 PAL, 2 NTSC, 3 VGA 60 Hz, 4-9 repeat a test, Space hides the text window.
+It shows a text screen with the FPGA DNA and the results of the tests: SRAM fast / slow (`ramtest16b`, 2 wait clocks before each read), joysticks 1 and 2, switches, EAR, SDRAM (`sdramtest`), SD slot (`sdtest`), SPI flash (always N/A: `flashtest` is wired to no pins on any board; Mini G2 uses T3 for the SDRAM CS), mouse, and plays an audio sample (`audio_test`). Keys (`rtl/common/switch_mode.v`, USB keyboard scancodes): 1 PAL, 2 NTSC, 3 VGA 60 Hz, 4-9 repeat a test, Space hides the text window.
 
 Three tops: `src/rtl/karabas_go_top.v` (VGA: `video_processor_lx25` and `vga_scandoubler` on clk7, PCM5102 DAC), `karabas_mini_top.v` and `karabas_minig_top.v` (HDMI: `video_processor_vga` on clk40, `pllx5` for the TMDS clocks, `hdmi` or `dvi` by `DVI_ONLY`). The ISE projects set no Verilog macros.
 
@@ -24,7 +24,7 @@ The core is not converted to karabas-go-modules: it carries its own MCU link, so
 - `cd src && make minig` (or `go`, `mini`, all without a target): XST, map / par, bitgen and the `.kg` from `karabas_<board>_top.prj` / `.xst` / `.ut` and `karabas_<board>.ucf` (the `.xise` projects are gone, 2026-11-13). The shared blocks come from the `modules` submodule (karabas-go-modules, branch link-v2).
 - Mini G is on MCU link v2 (`"link": 2`, build 26111322): `kg_mcu2` (keyboard report, mouse buttons, joysticks, the Reset switch), `kg_l2_osd_overlay`, `hdmi_tx` of zhdmi and `kg_pcm5102` of modules, FT_CLK_OUT 8 MHz (40 / 5). Go and Mini still use the local `rtl/mcu/mcu.vhd` (below) until their pass.
 - Pack with `make_core.py` (a symlink to `../../karabas-go-tools/make_core/make_core.py`, the sibling repo must be checked out next to this one) from `core.json` (one file for all boards: the common keys, `boards` for what differs; kgo2, karabas-go-tools `docs/kgo2.md`) into `src/test.kg` (`make_core.py core.json test.kg`, or `--boards <board>` for one board's bitstream). The `.bin` and `.kg` files are committed; the ISE outputs are in `.gitignore`.
-- The json: id `test`, `"type": "hidden"`, no ROMs, `eeprom_bank` 255 (none), one OSD item Reset (Ctrl+Alt+Del). The `build` of `core.json` (24030514) is older than that of the Mini files (26011000).
+- The json: id `test`, `"type": "hidden"`, no ROMs, `eeprom_bank` 255 (none), one OSD item Reset (Ctrl+Alt+Del). Build 26111701 on all boards (v1.4).
 - `src/karabas_go.bin` (tracked) is from an older Go project with a VHDL top; the current Go project writes `karabas_go_top.bin`, the one `core.json` packs.
 
 ## MCU link

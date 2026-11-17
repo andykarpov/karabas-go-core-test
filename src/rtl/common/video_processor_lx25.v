@@ -530,9 +530,9 @@ module updater (
       stringlist[91] = 8'd21;
       stringlist[92] = 8'hFF;
       
-      stringlist[93] = "O";  // ADDROKFLASH
-      stringlist[94] = "K";
-      stringlist[95] = "-";
+      stringlist[93] = "N";  // ADDROKFLASH: no SPI flash test on these boards
+      stringlist[94] = "/";
+      stringlist[95] = "A";
       stringlist[96] = " ";
       stringlist[97] = " ";
       stringlist[98] = 8'hFF;
@@ -778,15 +778,8 @@ module updater (
             end
          PUTFLASHTEST1:
             begin
-               if (flashtest_progress == 1'b1)
-                  addrstr <= ADDRINPROGRESS;
-               else if (flashtest_result == 1'b1) begin
-                  addrstr <= ADDROKFLASH;
-                  stringlist[ADDROKFLASH+3] <= flash_vendor_id[15:8];
-                  stringlist[ADDROKFLASH+4] <= flash_vendor_id[7:0];
-               end
-               else
-                  addrstr <= ADDRERROR;
+               // the flash test is not wired to pins on any board: show N/A
+               addrstr <= ADDROKFLASH;
                estado <= SENDSTR;
                retorno_de_sendstr <= PUTMOUSETEST;
             end
